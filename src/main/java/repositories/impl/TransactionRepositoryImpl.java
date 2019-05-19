@@ -10,6 +10,7 @@ import utilities.Utils;
 
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.Response;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -25,9 +26,9 @@ public class TransactionRepositoryImpl implements TransactionRepository {
     private Set<Account> accountCache = new HashSet<>();
 
     public TransactionRepositoryImpl() {
-        if (AccountRepositoryImpl.getAccountCache().isEmpty()) {
+        if (RepositoryGenerator.getAccountRepository().getAll().isEmpty()) {
             new AccountRepositoryImpl();
-            accountCache = AccountRepositoryImpl.getAccountCache();
+            accountCache = RepositoryGenerator.getAccountRepository().getAll();
         }
         cacheTransactions();
     }
@@ -48,10 +49,9 @@ public class TransactionRepositoryImpl implements TransactionRepository {
                         resultSet.getDouble("AMOUNT"));
                 transactionCache.add(transaction);
             }
-        } catch (SQLException e) {
+        } catch (SQLException | ClassNotFoundException | IOException e) {
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             DbUtils.closeQuietly(connection, statement, resultSet);
         }
     }
@@ -125,7 +125,8 @@ public class TransactionRepositoryImpl implements TransactionRepository {
         Account accountTo = optionalAccountTo.get();
         Account accountFrom = optionalAccountFrom.get();
 
-        if (Utils.hasSufficientAmountToPay(accountFrom, amount)) {
+        // TODO: 5/19/19 Check that bad request here.
+        if (!Utils.hasSufficientAmountToPay(accountFrom, amount)) {
             throw new WebApplicationException("Not sufficient amount left", Response.Status.BAD_REQUEST);
         }
 

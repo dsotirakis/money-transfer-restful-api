@@ -4,19 +4,20 @@ import org.h2.tools.RunScript;
 import utilities.Config;
 
 import java.io.FileReader;
+import java.io.IOException;
 import java.sql.*;
 
 public class InMemoryDatabase {
 
     private static String APPLICATION_PROPERTIES = "src/main/resources/application.properties";
 
-    public static Connection getConnection() {
+    public static Connection getConnection() throws IOException, ClassNotFoundException, SQLException {
         Config.loadProperties(APPLICATION_PROPERTIES);
         Connection connection;
         try {
             Class.forName(Config.getProperty("h2_driver"));
         } catch (ClassNotFoundException e) {
-            e.printStackTrace();
+            throw new ClassNotFoundException("H2 Driver not found", e);
         }
         try {
             connection = DriverManager.getConnection(
@@ -26,13 +27,12 @@ public class InMemoryDatabase {
             return connection;
         }
         catch (SQLException e) {
-            e.printStackTrace();
+            throw new SQLException("Driver Manager couldn't connect", e);
         }
-        return null;
     }
 
     public static void generateData() {
-        Connection connection = null;
+        Connection connection;
         try {
             connection = getConnection();
             RunScript.execute(connection, new FileReader("src/main/resources/schema-h2.sql"));
@@ -41,5 +41,4 @@ public class InMemoryDatabase {
             e.printStackTrace();
         }
     }
-
 }

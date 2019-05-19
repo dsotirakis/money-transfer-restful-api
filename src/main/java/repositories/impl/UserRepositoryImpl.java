@@ -4,6 +4,7 @@ import models.User;
 import repositories.InMemoryDatabase;
 import repositories.UserRepository;
 
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -17,10 +18,11 @@ import org.apache.commons.dbutils.DbUtils;
  */
 public class UserRepositoryImpl implements UserRepository {
 
-    private final Set<User> userCache = new HashSet<>();
+    private static final Set<User> userCache = new HashSet<>();
 
     public UserRepositoryImpl() {
-        cacheUsers();
+        if (userCache.isEmpty())
+            cacheUsers();
     }
 
     private void cacheUsers() {
@@ -41,8 +43,11 @@ public class UserRepositoryImpl implements UserRepository {
             }
         } catch (SQLException e) {
             e.printStackTrace();
-        }
-        finally {
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } finally {
             DbUtils.closeQuietly(connection, statement, resultSet);
         }
     }
@@ -78,7 +83,7 @@ public class UserRepositoryImpl implements UserRepository {
             System.out.println(ex.toString());
         }
 
-        this.userCache.add(user);
+        userCache.add(user);
 
         return null;
     }
@@ -118,7 +123,7 @@ public class UserRepositoryImpl implements UserRepository {
             System.out.println(ex.toString());
         }
 
-        this.userCache.remove(optionalUser.get());
+        userCache.remove(optionalUser.get());
 
         return optionalUser.get();
     }
@@ -161,10 +166,20 @@ public class UserRepositoryImpl implements UserRepository {
             System.out.println(ex.toString());
         }
 
-        this.userCache.remove(optionalUser.get());
-        this.userCache.add(updatedUser);
+        userCache.remove(optionalUser.get());
+
+        updatedUser = updateIdToUpdatedAccount(optionalUser.get(), updatedUser);
+        userCache.add(updatedUser);
 
         return updatedUser;
+    }
+
+    private User updateIdToUpdatedAccount(User previousUser, User updatedUser) {
+        return new User(
+                previousUser.getId(),
+                updatedUser.getName(),
+                updatedUser.getSurname(),
+                updatedUser.getEmail());
     }
 
     public Set<User> getAll() {
@@ -181,22 +196,26 @@ public class UserRepositoryImpl implements UserRepository {
 
     @Override
     public User getByName(String name) {
-        return getByParameter(name);
+        Optional<User> optionalUser = userCache.stream()
+                .filter(user -> user.getName().equals(name))
+                .findAny();
+
+        return optionalUser.orElse(null);
     }
 
     @Override
     public User getBySurname(String surname) {
-        return getByParameter(surname);
+        Optional<User> optionalUser = userCache.stream()
+                .filter(user -> user.getSurname().equals(surname))
+                .findAny();
+
+        return optionalUser.orElse(null);
     }
 
     @Override
     public User getByMail(String mail) {
-        return getByParameter(mail);
-    }
-
-    private User getByParameter(String parameter) {
         Optional<User> optionalUser = userCache.stream()
-                .filter(user -> user.getEmail().equals(parameter))
+                .filter(user -> user.getEmail().equals(mail))
                 .findAny();
 
         return optionalUser.orElse(null);

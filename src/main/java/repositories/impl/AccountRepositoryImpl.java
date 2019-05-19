@@ -5,6 +5,7 @@ import org.apache.commons.dbutils.DbUtils;
 import repositories.AccountRepository;
 import repositories.InMemoryDatabase;
 
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -39,10 +40,9 @@ public class AccountRepositoryImpl implements AccountRepository {
                         resultSet.getInt("BALANCE"));
                 accountCache.add(account);
             }
-        } catch (SQLException e) {
+        } catch (SQLException | ClassNotFoundException | IOException e) {
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             DbUtils.closeQuietly(connection, statement, resultSet);
         }
     }
@@ -160,9 +160,19 @@ public class AccountRepositoryImpl implements AccountRepository {
         }
 
         accountCache.remove(optionalAccount.get());
+
+        updatedAccount = updateIdToUpdatedAccount(optionalAccount.get(), updatedAccount);
         accountCache.add(updatedAccount);
 
         return updatedAccount;
+    }
+
+    private Account updateIdToUpdatedAccount(Account previousAccount, Account updatedAccount) {
+        return new Account(
+                previousAccount.getId(),
+                updatedAccount.getUsername(),
+                updatedAccount.getPassword(),
+                updatedAccount.getBalance());
     }
 
     public Set<Account> getAll() {
@@ -184,9 +194,5 @@ public class AccountRepositoryImpl implements AccountRepository {
                 .findAny();
 
         return optionalAccount.orElse(null);
-    }
-
-    static Set<Account> getAccountCache() {
-        return accountCache;
     }
 }
