@@ -13,6 +13,10 @@ import java.util.Set;
 @Produces(MediaType.APPLICATION_JSON)
 public class AccountRouter {
 
+    private AccountRepository getAccountRepository() {
+        return RepositoryGenerator.getAccountRepository();
+    }
+
     @GET
     @Path("getAll")
     public Set<Account> getAllAccounts() {
@@ -27,7 +31,7 @@ public class AccountRouter {
 
     @POST
     @Path("createAccount")
-    public Account insertAccount(Account account) {
+    public Response createAccount(Account account) {
         return getAccountRepository().add(account);
     }
 
@@ -35,7 +39,7 @@ public class AccountRouter {
     @Path("{id}")
     public Response deleteAccount(@PathParam("id") int id) {
         if (getAccountRepository().delete(id) != null) {
-            return Response.status(Response.Status.OK).build();
+            return Response.status(Response.Status.OK).entity("Account deleted successfully!").build();
         } else {
             return Response.status(Response.Status.NOT_FOUND).build();
         }
@@ -45,13 +49,9 @@ public class AccountRouter {
     @Path("{id}")
     public Response updateAccount(@PathParam("id") int accountIdToUpdate, Account updatedAccount) {
         if (getAccountRepository().update(accountIdToUpdate, updatedAccount) != null) {
-            return Response.status(Response.Status.OK).build();
+            return Response.status(Response.Status.OK).entity("Account updated successfully!").build();
         } else {
             return Response.status(Response.Status.NOT_FOUND).build();
         }
-    }
-
-    private AccountRepository getAccountRepository() {
-        return RepositoryGenerator.getAccountRepository();
     }
 }

@@ -5,7 +5,7 @@ import org.glassfish.jersey.servlet.ServletContainer;
 import repositories.InMemoryDatabase;
 import routers.AccountRouter;
 import routers.TransactionRouter;
-import routers.UserRouter;
+//import routers.UserRouter;
 
 public class MoneyTransferApp {
 
@@ -23,7 +23,6 @@ public class MoneyTransferApp {
         // Tells the Jersey Servlet which REST service/class to load.
         jerseyServlet.setInitParameter(
                 "jersey.config.server.provider.classnames",
-                UserRouter.class.getCanonicalName() + "," +
                         AccountRouter.class.getCanonicalName() + "," +
                         TransactionRouter.class.getCanonicalName());
 

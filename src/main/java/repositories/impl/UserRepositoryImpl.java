@@ -13,6 +13,8 @@ import java.util.*;
 
 import org.apache.commons.dbutils.DbUtils;
 
+import javax.ws.rs.core.Response;
+
 /**
  * This class is implementing a User Repository.
  */
@@ -52,7 +54,7 @@ public class UserRepositoryImpl implements UserRepository {
         }
     }
 
-    public User add(User user) {
+    public Response add(User user) {
 
         Connection connection;
         PreparedStatement statement;
@@ -85,10 +87,10 @@ public class UserRepositoryImpl implements UserRepository {
 
         userCache.add(user);
 
-        return null;
+        return Response.status(Response.Status.CREATED).entity("User created successfully!").build();
     }
 
-    public User delete(int id) {
+    public Response delete(int id) {
         Optional<User> optionalUser = userCache.stream()
                 .filter(user -> user.getId() == id)
                 .findAny();
@@ -125,10 +127,10 @@ public class UserRepositoryImpl implements UserRepository {
 
         userCache.remove(optionalUser.get());
 
-        return optionalUser.get();
+        return Response.status(Response.Status.NO_CONTENT).entity("User deleted successfully!").build();
     }
 
-    public User update(int id, User updatedUser) {
+    public Response update(int id, User updatedUser) {
 
         Optional<User> optionalUser = userCache.stream()
                 .filter(user -> user.getId() == id)
@@ -171,7 +173,7 @@ public class UserRepositoryImpl implements UserRepository {
         updatedUser = updateIdToUpdatedAccount(optionalUser.get(), updatedUser);
         userCache.add(updatedUser);
 
-        return updatedUser;
+        return Response.noContent().entity("Account updated successfully!").build();
     }
 
     private User updateIdToUpdatedAccount(User previousUser, User updatedUser) {

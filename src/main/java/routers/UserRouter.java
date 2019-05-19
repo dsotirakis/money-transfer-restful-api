@@ -27,7 +27,7 @@ public class UserRouter {
 
     @POST
     @Path("createUser")
-    public User insertUser(User user) {
+    public Response insertUser(User user) {
         return getUserRepository().add(user);
     }
 

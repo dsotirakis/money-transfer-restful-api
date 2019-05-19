@@ -2,15 +2,16 @@ package repositories;
 
 import models.User;
 
+import javax.ws.rs.core.Response;
 import java.util.Set;
 
 public interface UserRepository extends Repository<User> {
 
-    User add(User user);
+    Response add(User user);
 
-    User delete(int id);
+    Response delete(int id);
 
-    User update(int id, User updatedUser);
+    Response update(int id, User updatedUser);
 
     Set<User> getAll();
 

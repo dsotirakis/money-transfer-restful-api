@@ -1,14 +1,15 @@
 package repositories;
 
+import javax.ws.rs.core.Response;
 import java.util.Set;
 
 public interface Repository<T> {
 
-    T add(T t);
+    Response add(T t);
 
-    T delete(int id);
+    Response delete(int id);
 
-    T update(int id, T updatedObject);
+    Response update(int id, T updatedObject);
 
     Set<T> getAll();
 

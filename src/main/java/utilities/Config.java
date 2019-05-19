@@ -15,7 +15,6 @@ public class Config {
     private static Properties properties = new Properties();
 
     public static void loadProperties(String propertiesFile) throws IOException {
-        System.out.println("properties: " + propertiesFile);
         try {
             File file = new File(propertiesFile);
             FileInputStream fileInputStream = new FileInputStream(file);

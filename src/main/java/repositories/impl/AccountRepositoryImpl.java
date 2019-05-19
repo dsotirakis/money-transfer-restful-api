@@ -5,6 +5,7 @@ import org.apache.commons.dbutils.DbUtils;
 import repositories.AccountRepository;
 import repositories.InMemoryDatabase;
 
+import javax.ws.rs.core.Response;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -47,7 +48,7 @@ public class AccountRepositoryImpl implements AccountRepository {
         }
     }
 
-    public Account add(Account account) {
+    public Response add(Account account) {
         Connection connection;
         PreparedStatement statement;
         try {
@@ -79,10 +80,10 @@ public class AccountRepositoryImpl implements AccountRepository {
 
         accountCache.add(account);
 
-        return null;
+        return Response.status(Response.Status.CREATED).entity("Account created successfully!").build();
     }
 
-    public Account delete(int id) {
+    public Response delete(int id) {
         Optional<Account> optionalAccount = accountCache.stream()
                 .filter(account -> account.getId() == id)
                 .findAny();
@@ -119,10 +120,10 @@ public class AccountRepositoryImpl implements AccountRepository {
 
         accountCache.remove(optionalAccount.get());
 
-        return optionalAccount.get();
+        return Response.status(Response.Status.NO_CONTENT).entity("Account deleted successfully!").build();
     }
 
-    public Account update(int id, Account updatedAccount) {
+    public Response update(int id, Account updatedAccount) {
         Optional<Account> optionalAccount = accountCache.stream()
                 .filter(account -> account.getId() == id)
                 .findAny();
@@ -164,7 +165,7 @@ public class AccountRepositoryImpl implements AccountRepository {
         updatedAccount = updateIdToUpdatedAccount(optionalAccount.get(), updatedAccount);
         accountCache.add(updatedAccount);
 
-        return updatedAccount;
+        return Response.noContent().entity("Account updated successfully!").build();
     }
 
     private Account updateIdToUpdatedAccount(Account previousAccount, Account updatedAccount) {
