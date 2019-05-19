@@ -4,14 +4,14 @@ import java.util.Set;
 
 public interface Repository<T> {
 
-    void add(T t);
+    T add(T t);
 
-    void delete(T t);
+    T delete(int id);
 
-    T update(T t);
+    T update(int id, T updatedObject);
 
     Set<T> getAll();
 
-    T getById(String id);
+    T getById(int id);
 
 }

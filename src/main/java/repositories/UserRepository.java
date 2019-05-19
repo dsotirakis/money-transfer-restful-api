@@ -6,13 +6,19 @@ import java.util.Set;
 
 public interface UserRepository extends Repository<User> {
 
-    void add(User user);
+    User add(User user);
 
-    void delete(User user);
+    User delete(int id);
 
-    User update(User user);
+    User update(int id, User updatedUser);
 
     Set<User> getAll();
 
-    User getById(String id);
+    User getById(int id);
+
+    User getByName(String name);
+
+    User getBySurname(String surname);
+
+    User getByMail(String mail);
 }

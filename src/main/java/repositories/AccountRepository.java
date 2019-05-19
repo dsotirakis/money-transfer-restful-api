@@ -6,13 +6,15 @@ import java.util.Set;
 
 public interface AccountRepository extends Repository<Account> {
 
-    void add(Account account);
+    Account add(Account account);
 
-    void delete(Account account);
+    Account delete(int id);
 
-    Account update(Account account);
+    Account update(int id, Account updatedAccount);
 
     Set<Account> getAll();
 
-    Account getById(String id);
+    Account getById(int id);
+
+    Account getByUsername(String userName);
 }

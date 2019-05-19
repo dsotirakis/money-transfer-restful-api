@@ -1,19 +1,17 @@
 package repositories;
 
+import org.h2.tools.RunScript;
 import utilities.Config;
 
+import java.io.FileReader;
 import java.sql.*;
 
 public class InMemoryDatabase {
 
-    static String APPLICATION_PROPERTIES = "src/main/resources/application.properties";
-
-    InMemoryDatabase() {
-        Config.loadProperties(APPLICATION_PROPERTIES);
-    }
+    private static String APPLICATION_PROPERTIES = "src/main/resources/application.properties";
 
     public static Connection getConnection() {
-
+        Config.loadProperties(APPLICATION_PROPERTIES);
         Connection connection;
         try {
             Class.forName(Config.getProperty("h2_driver"));
@@ -31,6 +29,17 @@ public class InMemoryDatabase {
             e.printStackTrace();
         }
         return null;
+    }
+
+    public static void generateData() {
+        Connection connection = null;
+        try {
+            connection = getConnection();
+            RunScript.execute(connection, new FileReader("src/main/resources/schema-h2.sql"));
+            RunScript.execute(connection, new FileReader("src/main/resources/data-h2.sql"));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 }
