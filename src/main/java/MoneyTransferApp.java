@@ -5,7 +5,6 @@ import org.glassfish.jersey.servlet.ServletContainer;
 import repositories.InMemoryDatabase;
 import routers.AccountRouter;
 import routers.TransactionRouter;
-//import routers.UserRouter;
 
 public class MoneyTransferApp {
 

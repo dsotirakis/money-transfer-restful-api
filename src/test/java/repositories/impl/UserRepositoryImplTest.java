@@ -3,6 +3,10 @@ package repositories.impl;
 import models.User;
 import org.junit.jupiter.api.*;
 import repositories.InMemoryDatabase;
+import utilities.Config;
+
+import java.io.IOException;
+import java.util.NoSuchElementException;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertNull;
@@ -80,8 +84,8 @@ public class UserRepositoryImplTest {
         }
 
         @Test
-        void delete_accountDoesntExist() {
-            assertNull(userRepository.delete(4));
+        void delete_userDoesntExist() {
+            assertThrows(NoSuchElementException.class, () -> assertNull(userRepository.delete(4)));
         }
 
         @Test
@@ -94,9 +98,9 @@ public class UserRepositoryImplTest {
         }
 
         @Test
-        void update_accountDoesntExist() {
+        void update_userDoesntExist() {
             User updatedUser = new User("name1", "surname1", "mail1");
-            assertNull(userRepository.update(4, updatedUser));
+            assertThrows(NoSuchElementException.class, () -> assertNull(userRepository.update(4, updatedUser)));
         }
     }
 }

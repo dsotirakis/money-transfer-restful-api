@@ -7,6 +7,8 @@ import repositories.AccountRepository;
 import repositories.InMemoryDatabase;
 import repositories.RepositoryGenerator;
 
+import java.util.NoSuchElementException;
+
 import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.MethodOrderer.*;
 
@@ -84,7 +86,7 @@ class AccountRepositoryImplTest {
 
         @Test
         void delete_accountDoesntExist() {
-            assertNull(accountRepository.delete(4));
+            assertThrows(NoSuchElementException.class, () -> assertNull(accountRepository.delete(4)));
         }
 
         @Test
@@ -98,7 +100,7 @@ class AccountRepositoryImplTest {
         @Test
         void update_accountDoesntExist() {
             Account updatedAccount = new Account("name1", "password1", 100.0);
-            assertNull(accountRepository.update(4, updatedAccount));
+            assertThrows(NoSuchElementException.class, () -> assertNull(accountRepository.update(4, updatedAccount)));
         }
     }
 }
