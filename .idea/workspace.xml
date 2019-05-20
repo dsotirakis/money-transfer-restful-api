@@ -2,17 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="7a57a409-e658-4715-8b23-12fb36d4948b" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/checkstyle-idea.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/routers/UserRouterTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/money-transfer-restful-api.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/repositories/impl/AccountRepositoryImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/repositories/impl/AccountRepositoryImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/routers/AccountRouter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/routers/AccountRouter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/repositories/impl/UserRepositoryImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/repositories/impl/UserRepositoryImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/routers/UserRouter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/routers/UserRouter.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/repositories/impl/AccountRepositoryImplTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/repositories/impl/AccountRepositoryImplTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/repositories/impl/UserRepositoryImplTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/repositories/impl/UserRepositoryImplTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/routers/AccountRouterTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/routers/AccountRouterTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven-archiver/pom.properties" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-archiver/pom.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/money-transfer-restful-api-1.0-SNAPSHOT.jar" beforeDir="false" afterPath="$PROJECT_DIR$/target/money-transfer-restful-api-1.0-SNAPSHOT.jar" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/original-money-transfer-restful-api-1.0-SNAPSHOT.jar" beforeDir="false" afterPath="$PROJECT_DIR$/target/original-money-transfer-restful-api-1.0-SNAPSHOT.jar" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/routers/AccountRouterTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/routers/AccountRouterTest.class" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -33,10 +29,10 @@
       <split-first>
         <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
           <file pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/src/main/java/repositories/impl/AccountRepositoryImpl.java">
+            <entry file="file://$PROJECT_DIR$/src/main/java/repositories/impl/UserRepositoryImpl.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="220">
-                  <caret line="187" column="19" selection-start-line="187" selection-start-column="19" selection-end-line="187" selection-end-column="19" />
+                <state relative-caret-position="403">
+                  <caret line="173" column="35" lean-forward="true" selection-start-line="173" selection-start-column="35" selection-end-line="173" selection-end-column="35" />
                   <folding>
                     <element signature="imports" expanded="true" />
                   </folding>
@@ -45,10 +41,10 @@
             </entry>
           </file>
           <file pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/src/main/java/repositories/impl/UserRepositoryImpl.java">
+            <entry file="file://$PROJECT_DIR$/src/test/java/routers/AccountRouterTest.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="2259">
-                  <caret line="229" selection-start-line="229" selection-end-line="229" />
+                <state relative-caret-position="-111">
+                  <caret line="100" column="49" selection-start-line="100" selection-start-column="49" selection-end-line="100" selection-end-column="49" />
                   <folding>
                     <element signature="imports" expanded="true" />
                   </folding>
@@ -57,74 +53,35 @@
             </entry>
           </file>
           <file pinned="false" current-in-tab="true">
-            <entry file="file://$PROJECT_DIR$/src/test/java/routers/AccountRouterTest.java">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="165">
-                  <caret line="71" column="50" selection-start-line="71" selection-start-column="50" selection-end-line="71" selection-end-column="50" />
-                  <folding>
-                    <element signature="imports" expanded="true" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/src/test/java/repositories/impl/AccountRepositoryImplTest.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="105">
-                  <caret line="7" column="40" selection-start-line="7" selection-start-column="40" selection-end-line="7" selection-end-column="40" />
+                <state relative-caret-position="255">
+                  <caret line="19" column="5" lean-forward="true" selection-start-line="19" selection-start-column="5" selection-end-line="19" selection-end-column="5" />
                   <folding>
-                    <element signature="e#2610#2611#0" expanded="true" />
-                    <element signature="e#2692#2693#0" expanded="true" />
+                    <element signature="imports" expanded="true" />
                   </folding>
                 </state>
               </provider>
             </entry>
           </file>
           <file pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/src/main/java/repositories/AccountRepository.java">
+            <entry file="file://$PROJECT_DIR$/src/test/java/routers/UserRouterTest.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="210">
-                  <caret line="17" column="12" selection-start-line="17" selection-start-column="12" selection-end-line="17" selection-end-column="12" />
+                <state relative-caret-position="-1399">
+                  <caret line="25" selection-start-line="25" selection-end-line="25" />
                 </state>
               </provider>
             </entry>
           </file>
           <file pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/pom.xml">
+            <entry file="file://$PROJECT_DIR$/src/test/java/repositories/impl/UserRepositoryImplTest.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="900">
-                  <caret line="195" column="17" selection-start-line="195" selection-start-column="17" selection-end-line="195" selection-end-column="17" />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/src/test/java/routers/AppResourceConfig.java">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="90">
-                  <caret line="11" column="28" selection-start-line="11" selection-start-column="28" selection-end-line="11" selection-end-column="28" />
+                <state relative-caret-position="1545">
+                  <caret line="117" column="35" selection-start-line="117" selection-start-column="35" selection-end-line="117" selection-end-column="35" />
                   <folding>
                     <element signature="imports" expanded="true" />
-                    <element signature="e#289#290#0" expanded="true" />
-                    <element signature="e#324#325#0" expanded="true" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/src/main/java/routers/UserRouter.java">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="270">
-                  <caret line="29" column="43" selection-start-line="29" selection-start-column="43" selection-end-line="29" selection-end-column="43" />
-                  <folding>
-                    <element signature="imports" expanded="true" />
-                    <element signature="e#375#376#0" expanded="true" />
-                    <element signature="e#426#427#0" expanded="true" />
-                    <element signature="e#505#506#0" expanded="true" />
-                    <element signature="e#559#560#0" expanded="true" />
-                    <element signature="e#690#691#0" expanded="true" />
+                    <element signature="e#3296#3297#0" expanded="true" />
+                    <element signature="e#3356#3357#0" expanded="true" />
                   </folding>
                 </state>
               </provider>
@@ -133,8 +90,8 @@
           <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/src/main/java/repositories/UserRepository.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="345">
-                  <caret line="23" column="8" selection-start-line="23" selection-start-column="8" selection-end-line="23" selection-end-column="8" />
+                <state relative-caret-position="375">
+                  <caret line="25" lean-forward="true" selection-start-line="25" selection-end-line="25" />
                   <folding>
                     <element signature="imports" expanded="true" />
                   </folding>
@@ -146,26 +103,27 @@
       </split-first>
       <split-second>
         <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-          <file pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/src/main/java/repositories/RepositoryGenerator.java">
+          <file pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/src/main/java/routers/UserRouter.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="60">
-                  <caret line="4" selection-start-line="4" selection-end-line="4" />
+                <state relative-caret-position="324">
+                  <caret line="54" column="46" selection-start-line="54" selection-start-column="46" selection-end-line="54" selection-end-column="46" />
                   <folding>
                     <element signature="imports" expanded="true" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file pinned="false" current-in-tab="true">
-            <entry file="file://$PROJECT_DIR$/src/main/java/routers/AccountRouter.java">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="-60">
-                  <caret line="8" column="33" selection-start-line="8" selection-start-column="33" selection-end-line="8" selection-end-column="33" />
-                  <folding>
-                    <element signature="e#1175#1176#0" expanded="true" />
-                    <element signature="e#1231#1232#0" expanded="true" />
+                    <element signature="e#375#376#0" expanded="true" />
+                    <element signature="e#426#427#0" expanded="true" />
+                    <element signature="e#505#506#0" expanded="true" />
+                    <element signature="e#559#560#0" expanded="true" />
+                    <element signature="e#642#643#0" expanded="true" />
+                    <element signature="e#696#697#0" expanded="true" />
+                    <element signature="e#813#814#0" expanded="true" />
+                    <element signature="e#871#872#0" expanded="true" />
+                    <element signature="e#982#983#0" expanded="true" />
+                    <element signature="e#1040#1041#0" expanded="true" />
+                    <element signature="e#638#639#0" expanded="true" />
+                    <element signature="e#690#691#0" expanded="true" />
+                    <element signature="e#1260#1261#0" expanded="true" />
+                    <element signature="e#1313#1314#0" expanded="true" />
                   </folding>
                 </state>
               </provider>
@@ -238,18 +196,19 @@
         <option value="$PROJECT_DIR$/src/test/java/repositories/RepositoryGeneratorTest.java" />
         <option value="$PROJECT_DIR$/src/main/java/repositories/UserRepository.java" />
         <option value="$PROJECT_DIR$/src/main/java/repositories/RepositoryGenerator.java" />
-        <option value="$PROJECT_DIR$/src/main/java/repositories/impl/UserRepositoryImpl.java" />
-        <option value="$PROJECT_DIR$/src/main/java/routers/UserRouter.java" />
-        <option value="$PROJECT_DIR$/src/test/java/repositories/impl/UserRepositoryImplTest.java" />
         <option value="$PROJECT_DIR$/src/test/java/routers/TestService.java" />
         <option value="$PROJECT_DIR$/src/test/java/routers/TestApplicationConfig.java" />
         <option value="$PROJECT_DIR$/src/main/java/MoneyTransferApp.java" />
         <option value="$PROJECT_DIR$/src/test/java/routers/AppResourceConfig.java" />
         <option value="$PROJECT_DIR$/pom.xml" />
         <option value="$PROJECT_DIR$/src/main/java/repositories/impl/AccountRepositoryImpl.java" />
-        <option value="$PROJECT_DIR$/src/test/java/repositories/impl/AccountRepositoryImplTest.java" />
         <option value="$PROJECT_DIR$/src/main/java/routers/AccountRouter.java" />
         <option value="$PROJECT_DIR$/src/test/java/routers/AccountRouterTest.java" />
+        <option value="$PROJECT_DIR$/src/main/java/routers/UserRouter.java" />
+        <option value="$PROJECT_DIR$/src/main/java/repositories/impl/UserRepositoryImpl.java" />
+        <option value="$PROJECT_DIR$/src/test/java/repositories/impl/UserRepositoryImplTest.java" />
+        <option value="$PROJECT_DIR$/src/test/java/routers/UserRouterTest.java" />
+        <option value="$PROJECT_DIR$/src/test/java/repositories/impl/AccountRepositoryImplTest.java" />
       </list>
     </option>
   </component>
@@ -415,8 +374,8 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.All in money-transfer-restful-api">
-    <configuration name="AccountRepositoryImplTest$AccountRepositoryCUDTest.delete_accountDoesntExist" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+  <component name="RunManager" selected="JUnit.AccountRepositoryImplTest">
+    <configuration name="AccountRepositoryImplTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="money-transfer-restful-api" />
       <extension name="coverage">
         <pattern>
@@ -425,57 +384,8 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="repositories.impl" />
-      <option name="MAIN_CLASS_NAME" value="repositories.impl.AccountRepositoryImplTest$AccountRepositoryCUDTest" />
-      <option name="METHOD_NAME" value="delete_accountDoesntExist" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="AccountRepositoryImplTest$AccountRepositoryCUDTest.update_accountDoesntExist" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="money-transfer-restful-api" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="repositories.impl.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="repositories.impl" />
-      <option name="MAIN_CLASS_NAME" value="repositories.impl.AccountRepositoryImplTest$AccountRepositoryCUDTest" />
-      <option name="METHOD_NAME" value="update_accountDoesntExist" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="AccountRouterTest.getById" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="money-transfer-restful-api" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="routers.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="routers" />
-      <option name="MAIN_CLASS_NAME" value="routers.AccountRouterTest" />
-      <option name="METHOD_NAME" value="getById" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="AccountRouterTest.updateAccount" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="money-transfer-restful-api" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="routers.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="routers" />
-      <option name="MAIN_CLASS_NAME" value="routers.AccountRouterTest" />
-      <option name="METHOD_NAME" value="updateAccount" />
-      <option name="TEST_OBJECT" value="method" />
+      <option name="MAIN_CLASS_NAME" value="repositories.impl.AccountRepositoryImplTest" />
+      <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -488,13 +398,61 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="UserRepositoryImplTest$AccountRepositoryCUDTest.update" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="money-transfer-restful-api" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="repositories.impl.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="repositories.impl" />
+      <option name="MAIN_CLASS_NAME" value="repositories.impl.UserRepositoryImplTest$AccountRepositoryCUDTest" />
+      <option name="METHOD_NAME" value="update" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="UserRepositoryImplTest$AccountRepositoryGettersTest.getByMail" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="money-transfer-restful-api" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="repositories.impl.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="repositories.impl" />
+      <option name="MAIN_CLASS_NAME" value="repositories.impl.UserRepositoryImplTest$AccountRepositoryGettersTest" />
+      <option name="METHOD_NAME" value="getByMail" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="UserRouterTest.getByEmail_emailDoesntExist" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="money-transfer-restful-api" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="routers.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="routers" />
+      <option name="MAIN_CLASS_NAME" value="routers.UserRouterTest" />
+      <option name="METHOD_NAME" value="getByEmail_emailDoesntExist" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.AccountRepositoryImplTest" />
         <item itemvalue="JUnit.All in money-transfer-restful-api" />
-        <item itemvalue="JUnit.AccountRouterTest.getById" />
-        <item itemvalue="JUnit.AccountRouterTest.updateAccount" />
-        <item itemvalue="JUnit.AccountRepositoryImplTest$AccountRepositoryCUDTest.delete_accountDoesntExist" />
-        <item itemvalue="JUnit.AccountRepositoryImplTest$AccountRepositoryCUDTest.update_accountDoesntExist" />
+        <item itemvalue="JUnit.UserRepositoryImplTest$AccountRepositoryCUDTest.update" />
+        <item itemvalue="JUnit.UserRepositoryImplTest$AccountRepositoryGettersTest.getByMail" />
+        <item itemvalue="JUnit.UserRouterTest.getByEmail_emailDoesntExist" />
       </list>
     </recent_temporary>
   </component>
@@ -508,44 +466,44 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1557860697486</updated>
-      <workItem from="1558334115421" duration="3672000" />
+      <workItem from="1558334115421" duration="8447000" />
     </task>
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="AccountRepositoryImplTest$AccountRepositoryCUDTest_delete_accountDoesntExist - 2019.05.20 at 08h 29m 57s.xml">
-      <configuration name="AccountRepositoryImplTest$AccountRepositoryCUDTest.delete_accountDoesntExist" configurationId="JUnit" />
+    <history-entry file="UserRepositoryImplTest$AccountRepositoryGettersTest_getByMail - 2019.05.20 at 09h 38m 49s.xml">
+      <configuration name="UserRepositoryImplTest$AccountRepositoryGettersTest.getByMail" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="AccountRepositoryImplTest$AccountRepositoryCUDTest_delete_accountDoesntExist - 2019.05.20 at 08h 30m 27s.xml">
-      <configuration name="AccountRepositoryImplTest$AccountRepositoryCUDTest.delete_accountDoesntExist" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="AccountRepositoryImplTest$AccountRepositoryCUDTest_update_accountDoesntExist - 2019.05.20 at 08h 31m 02s.xml">
-      <configuration name="AccountRepositoryImplTest$AccountRepositoryCUDTest.update_accountDoesntExist" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="AccountRepositoryImplTest$AccountRepositoryCUDTest_delete_accountDoesntExist - 2019.05.20 at 08h 31m 06s.xml">
-      <configuration name="AccountRepositoryImplTest$AccountRepositoryCUDTest.delete_accountDoesntExist" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="All_in_money-transfer-restful-api - 2019.05.20 at 08h 31m 28s.xml">
+    <history-entry file="All_in_money-transfer-restful-api - 2019.05.20 at 09h 40m 43s.xml">
       <configuration name="All in money-transfer-restful-api" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="AccountRouterTest_updateAccount - 2019.05.20 at 08h 32m 18s.xml">
-      <configuration name="AccountRouterTest.updateAccount" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="AccountRouterTest_updateAccount - 2019.05.20 at 08h 32m 37s.xml">
-      <configuration name="AccountRouterTest.updateAccount" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="All_in_money-transfer-restful-api - 2019.05.20 at 08h 32m 48s.xml">
+    <history-entry file="All_in_money-transfer-restful-api - 2019.05.20 at 09h 41m 37s.xml">
       <configuration name="All in money-transfer-restful-api" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="All_in_money-transfer-restful-api - 2019.05.20 at 08h 33m 09s.xml">
+    <history-entry file="All_in_money-transfer-restful-api - 2019.05.20 at 09h 43m 31s.xml">
       <configuration name="All in money-transfer-restful-api" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="AccountRouterTest_getById - 2019.05.20 at 08h 35m 06s.xml">
-      <configuration name="AccountRouterTest.getById" configurationId="JUnit" />
+    <history-entry file="All_in_money-transfer-restful-api - 2019.05.20 at 09h 46m 17s.xml">
+      <configuration name="All in money-transfer-restful-api" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="UserRepositoryImplTest$AccountRepositoryCUDTest_update - 2019.05.20 at 09h 46m 44s.xml">
+      <configuration name="UserRepositoryImplTest$AccountRepositoryCUDTest.update" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="UserRepositoryImplTest$AccountRepositoryCUDTest_update - 2019.05.20 at 09h 47m 36s.xml">
+      <configuration name="UserRepositoryImplTest$AccountRepositoryCUDTest.update" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="UserRepositoryImplTest$AccountRepositoryCUDTest_update - 2019.05.20 at 10h 03m 38s.xml">
+      <configuration name="UserRepositoryImplTest$AccountRepositoryCUDTest.update" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="All_in_money-transfer-restful-api - 2019.05.20 at 10h 03m 45s.xml">
+      <configuration name="All in money-transfer-restful-api" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="All_in_money-transfer-restful-api - 2019.05.20 at 10h 04m 24s.xml">
+      <configuration name="All in money-transfer-restful-api" configurationId="JUnit" />
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="3672000" />
+    <option name="totallyTimeSpent" value="8447000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="1920" y="0" width="1920" height="1080" extended-state="6" />
@@ -640,7 +598,6 @@
     <SUITE FILE_PATH="coverage/money_transfer_restful_api$All_in_money_transfer_restful_api.ic" NAME="All in money-transfer-restful-api Coverage Results" MODIFIED="1558261265566" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="jar://$MAVEN_REPOSITORY$/commons-dbutils/commons-dbutils/1.6/commons-dbutils-1.6.jar!/org/apache/commons/dbutils/DbUtils.class" />
     <entry file="file://$PROJECT_DIR$/src/main/resources/schema-h2.sql">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="195">
@@ -747,13 +704,6 @@
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/data-h2.sql">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="8" selection-start-line="8" selection-end-line="8" />
         </state>
       </provider>
     </entry>
@@ -870,41 +820,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/routers/UserRouter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="270">
-          <caret line="29" column="43" selection-start-line="29" selection-start-column="43" selection-end-line="29" selection-end-column="43" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#375#376#0" expanded="true" />
-            <element signature="e#426#427#0" expanded="true" />
-            <element signature="e#505#506#0" expanded="true" />
-            <element signature="e#559#560#0" expanded="true" />
-            <element signature="e#690#691#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/repositories/UserRepository.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="345">
-          <caret line="23" column="8" selection-start-line="23" selection-start-column="8" selection-end-line="23" selection-end-column="8" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/repositories/impl/UserRepositoryImplTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1230">
-          <caret line="102" column="36" selection-start-line="102" selection-end-line="103" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/utilities/Config.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="225">
@@ -932,13 +847,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/pom.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="900">
-          <caret line="195" column="17" selection-start-line="195" selection-start-column="17" selection-end-line="195" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/MoneyTransferApp.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="195">
@@ -953,16 +861,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="60">
           <caret line="4" selection-start-line="4" selection-end-line="4" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/repositories/impl/UserRepositoryImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2259">
-          <caret line="229" selection-start-line="229" selection-end-line="229" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -990,28 +888,24 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/repositories/impl/AccountRepositoryImplTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="7" column="40" selection-start-line="7" selection-start-column="40" selection-end-line="7" selection-end-column="40" />
-          <folding>
-            <element signature="e#2610#2611#0" expanded="true" />
-            <element signature="e#2692#2693#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/repositories/AccountRepository.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="210">
-          <caret line="17" column="12" selection-start-line="17" selection-start-column="12" selection-end-line="17" selection-end-column="12" />
+        <state relative-caret-position="90">
+          <caret line="9" column="13" selection-start-line="9" selection-start-column="13" selection-end-line="9" selection-end-column="13" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/repositories/impl/AccountRepositoryImpl.java">
+    <entry file="file://$PROJECT_DIR$/pom.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="220">
-          <caret line="187" column="19" selection-start-line="187" selection-start-column="19" selection-end-line="187" selection-end-column="19" />
+        <state relative-caret-position="900">
+          <caret line="195" column="17" selection-start-line="195" selection-start-column="17" selection-end-line="195" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/repositories/UserRepository.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="375">
+          <caret line="25" lean-forward="true" selection-start-line="25" selection-end-line="25" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -1020,19 +914,100 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/routers/AccountRouter.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-60">
-          <caret line="8" column="33" selection-start-line="8" selection-start-column="33" selection-end-line="8" selection-end-column="33" />
+        <state relative-caret-position="265">
+          <caret line="41" column="40" lean-forward="true" selection-start-line="41" selection-start-column="40" selection-end-line="41" selection-end-column="40" />
           <folding>
+            <element signature="imports" expanded="true" />
             <element signature="e#1175#1176#0" expanded="true" />
             <element signature="e#1231#1232#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/repositories/impl/AccountRepositoryImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="575">
+          <caret line="50" column="20" selection-start-line="50" selection-start-column="20" selection-end-line="50" selection-end-column="20" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/routers/UserRouter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="324">
+          <caret line="54" column="46" selection-start-line="54" selection-start-column="46" selection-end-line="54" selection-end-column="46" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#375#376#0" expanded="true" />
+            <element signature="e#426#427#0" expanded="true" />
+            <element signature="e#505#506#0" expanded="true" />
+            <element signature="e#559#560#0" expanded="true" />
+            <element signature="e#642#643#0" expanded="true" />
+            <element signature="e#696#697#0" expanded="true" />
+            <element signature="e#813#814#0" expanded="true" />
+            <element signature="e#871#872#0" expanded="true" />
+            <element signature="e#982#983#0" expanded="true" />
+            <element signature="e#1040#1041#0" expanded="true" />
+            <element signature="e#638#639#0" expanded="true" />
+            <element signature="e#690#691#0" expanded="true" />
+            <element signature="e#1260#1261#0" expanded="true" />
+            <element signature="e#1313#1314#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/data-h2.sql">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="30">
+          <caret line="2" column="92" lean-forward="true" selection-start-line="2" selection-start-column="77" selection-end-line="2" selection-end-column="92" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/repositories/impl/UserRepositoryImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="403">
+          <caret line="173" column="35" lean-forward="true" selection-start-line="173" selection-start-column="35" selection-end-line="173" selection-end-column="35" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/test/java/routers/AccountRouterTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="165">
-          <caret line="71" column="50" selection-start-line="71" selection-start-column="50" selection-end-line="71" selection-end-column="50" />
+        <state relative-caret-position="-111">
+          <caret line="100" column="49" selection-start-line="100" selection-start-column="49" selection-end-line="100" selection-end-column="49" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/repositories/impl/UserRepositoryImplTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1545">
+          <caret line="117" column="35" selection-start-line="117" selection-start-column="35" selection-end-line="117" selection-end-column="35" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#3296#3297#0" expanded="true" />
+            <element signature="e#3356#3357#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/routers/UserRouterTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1399">
+          <caret line="25" selection-start-line="25" selection-end-line="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/repositories/impl/AccountRepositoryImplTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="19" column="5" lean-forward="true" selection-start-line="19" selection-start-column="5" selection-end-line="19" selection-end-column="5" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>

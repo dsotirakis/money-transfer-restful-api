@@ -10,6 +10,7 @@ import java.sql.*;
 public class InMemoryDatabase {
 
     private static String APPLICATION_PROPERTIES = "src/main/resources/application.properties";
+    private static boolean DATA_GENERATED = false;
 
     public static Connection getConnection() throws IOException, ClassNotFoundException, SQLException {
         Config.loadProperties(APPLICATION_PROPERTIES);
@@ -32,11 +33,14 @@ public class InMemoryDatabase {
     }
 
     public static void generateData() {
+        if (DATA_GENERATED)
+            return;
         Connection connection;
         try {
             connection = getConnection();
             RunScript.execute(connection, new FileReader("src/main/resources/schema-h2.sql"));
             RunScript.execute(connection, new FileReader("src/main/resources/data-h2.sql"));
+            DATA_GENERATED = true;
         } catch (Exception e) {
             e.printStackTrace();
         }

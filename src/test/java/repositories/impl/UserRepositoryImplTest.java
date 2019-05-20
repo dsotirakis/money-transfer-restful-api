@@ -3,16 +3,12 @@ package repositories.impl;
 import models.User;
 import org.junit.jupiter.api.*;
 import repositories.InMemoryDatabase;
-import utilities.Config;
-
-import java.io.IOException;
-import java.util.NoSuchElementException;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.MethodOrderer.*;
 
-public class UserRepositoryImplTest {
+class UserRepositoryImplTest {
 
     private UserRepositoryImpl userRepository = new UserRepositoryImpl();
 
@@ -56,6 +52,30 @@ public class UserRepositoryImplTest {
         }
 
         @Test
+        void getBySurname() {
+            assertEquals(userRepository.getBySurname("surname1").getSurname(), "surname1");
+            assertEquals(userRepository.getBySurname("surname2").getSurname(), "surname2");
+            assertEquals(userRepository.getBySurname("surname3").getSurname(), "surname3");
+        }
+
+        @Test
+        void getBySurname_surnameDoesntExist() {
+            assertNull(userRepository.getBySurname("name4"));
+        }
+
+        @Test
+        void getByMail() {
+            assertEquals(userRepository.getByMail("name1@gmail.com").getEmail(), "name1@gmail.com");
+            assertEquals(userRepository.getByMail("name2@gmail.com").getEmail(), "name2@gmail.com");
+            assertEquals(userRepository.getByMail("name3@gmail.com").getEmail(), "name3@gmail.com");
+        }
+
+        @Test
+        void getByMail_mailDoesntExist() {
+            assertNull(userRepository.getByMail("mail4"));
+        }
+
+        @Test
         void getUserCache() {
             assertEquals(userRepository.getAll().size(), 3);
         }
@@ -75,7 +95,7 @@ public class UserRepositoryImplTest {
         }
 
         @Test
-        @Order(2)
+        @Order(3)
         void delete() {
             User userToDelete = userRepository.getById(0);
             userRepository.delete(userToDelete.getId());
@@ -84,21 +104,27 @@ public class UserRepositoryImplTest {
 
         @Test
         void delete_userDoesntExist() {
-            assertThrows(NoSuchElementException.class, () -> assertNull(userRepository.delete(4)));
+            assertEquals(userRepository.delete(4).getStatus(), 404);
         }
 
         @Test
+        @Order(2)
         void update() {
             User updatedUser = new User("name1", "surname1", "newMail");
             userRepository.update(1, updatedUser);
             assertNotNull(userRepository.getById(1));
             assertEquals(userRepository.getById(1).getEmail(), "newMail");
+
+            // TODO Check this out.
+            // Revert user to initial state.
+            updatedUser = new User("name1", "surname1", "name1@gmail.com");
+            userRepository.update(1, updatedUser);
         }
 
         @Test
         void update_userDoesntExist() {
             User updatedUser = new User("name1", "surname1", "mail1");
-            assertThrows(NoSuchElementException.class, () -> assertNull(userRepository.update(4, updatedUser)));
+            assertEquals(userRepository.update(4, updatedUser).getStatus(), 404);
         }
     }
 }

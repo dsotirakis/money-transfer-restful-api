@@ -25,6 +25,24 @@ public class UserRouter {
         return getUserRepository().getById(id);
     }
 
+    @GET
+    @Path("/name/{name}")
+    public User getByName(@PathParam("name") String name) {
+        return getUserRepository().getByName(name);
+    }
+
+    @GET
+    @Path("/sname/{surname}")
+    public User getBySurname(@PathParam("surname") String surname) {
+        return getUserRepository().getBySurname(surname);
+    }
+
+    @GET
+    @Path("/mail/{mail}")
+    public User getByMail(@PathParam("mail") String mail) {
+        return getUserRepository().getByMail(mail);
+    }
+
     @POST
     @Path("createUser")
     public Response insertUser(User user) {
@@ -34,21 +52,13 @@ public class UserRouter {
     @DELETE
     @Path("{id}")
     public Response deleteUser(@PathParam("id") int id) {
-        if (getUserRepository().delete(id) != null) {
-            return Response.status(Response.Status.OK).build();
-        } else {
-            return Response.status(Response.Status.NOT_FOUND).build();
-        }
+        return getUserRepository().delete(id);
     }
 
     @PUT
     @Path("{id}")
     public Response updateUser(@PathParam("id") int userIdToUpdate, User updatedUser) {
-        if (getUserRepository().update(userIdToUpdate, updatedUser) != null) {
-            return Response.status(Response.Status.OK).build();
-        } else {
-            return Response.status(Response.Status.NOT_FOUND).build();
-        }
+        return getUserRepository().update(userIdToUpdate, updatedUser);
     }
 
     private UserRepository getUserRepository() {

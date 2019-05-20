@@ -96,7 +96,7 @@ public class UserRepositoryImpl implements UserRepository {
                 .findAny();
 
         if (!optionalUser.isPresent())
-            userNotFound();
+            return userNotFound();
 
         Connection connection;
         PreparedStatement statement;
@@ -136,7 +136,7 @@ public class UserRepositoryImpl implements UserRepository {
                 .findAny();
 
         if (!optionalUser.isPresent()) {
-            userNotFound();
+            return userNotFound();
         }
 
         Connection connection;
@@ -176,8 +176,8 @@ public class UserRepositoryImpl implements UserRepository {
         return Response.noContent().entity("Account updated successfully!").build();
     }
 
-    private void userNotFound() {
-        Response.status(Response.Status.NOT_FOUND).entity("User not found!").build();
+    private Response userNotFound() {
+        return Response.status(Response.Status.NOT_FOUND).entity("User not found!").build();
     }
 
     private User updateIdToUpdatedAccount(User previousUser, User updatedUser) {
