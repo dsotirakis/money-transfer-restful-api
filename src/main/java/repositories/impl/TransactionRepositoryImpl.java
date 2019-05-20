@@ -19,17 +19,14 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
+import java.util.UUID;
 
 public class TransactionRepositoryImpl implements TransactionRepository {
 
     private final Set<Transaction> transactionCache = new HashSet<>();
-    private Set<Account> accountCache = new HashSet<>();
+    private Set<Account> accountCache = RepositoryGenerator.getAccountRepository().getAll();;
 
     public TransactionRepositoryImpl() {
-        if (RepositoryGenerator.getAccountRepository().getAll().isEmpty()) {
-            new AccountRepositoryImpl();
-            accountCache = RepositoryGenerator.getAccountRepository().getAll();
-        }
         cacheTransactions();
     }
 
@@ -43,7 +40,7 @@ public class TransactionRepositoryImpl implements TransactionRepository {
             resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 Transaction transaction = new Transaction(
-                        resultSet.getInt("ID"),
+                        resultSet.getString("ID"),
                         resultSet.getInt("ACCOUNTTO"),
                         resultSet.getInt("ACCOUNTFROM"),
                         resultSet.getDouble("AMOUNT"));
@@ -62,18 +59,21 @@ public class TransactionRepositoryImpl implements TransactionRepository {
     }
 
     @Override
-    public Transaction getById(int id) {
+    public Transaction getById(String id) {
         Optional<Transaction> optionalAccount = transactionCache.stream()
-                .filter(transaction -> transaction.getId() == id)
+                .filter(transaction -> transaction.getId()
+                        .equals(id))
                 .findAny();
 
         return optionalAccount.orElse(null);
     }
 
     @Override
-    public Response makeTransaction(Transaction transaction) {
-        if (updateAccounts(transaction.getAccountTo(), transaction.getAccountFrom(), transaction.getAmount()))
-            return Response.status(Response.Status.NOT_FOUND).build();
+    public synchronized Response makeTransaction(Transaction transaction) {
+        if (updateAccounts(transaction.getAccountTo(), transaction.getAccountFrom(), transaction.getAmount())) {
+            return Response.status(Response.Status.NOT_FOUND)
+                    .build();
+        }
 
         Connection connection;
         PreparedStatement statement;
@@ -82,13 +82,14 @@ public class TransactionRepositoryImpl implements TransactionRepository {
             //Set auto commit to false
             Objects.requireNonNull(connection).setAutoCommit(false);
 
-            String string = ("INSERT INTO TRANSACTIONS (accountTo, accountFrom, amount) VALUES (?, ?, ?)");
+            String string = ("INSERT INTO TRANSACTIONS (id, accountTo, accountFrom, amount) VALUES (?, ?, ?, ?)");
 
             // Used prepare statement methods in order not to pass direct strings, to care about SQL Injection issues.
             statement = connection.prepareStatement(string);
-            statement.setInt(1, transaction.getAccountTo());
-            statement.setInt(2, transaction.getAccountFrom());
-            statement.setDouble(3, transaction.getAmount());
+            statement.setString(1, UUID.randomUUID().toString());
+            statement.setInt(2, transaction.getAccountTo());
+            statement.setInt(3, transaction.getAccountFrom());
+            statement.setDouble(4, transaction.getAmount());
 
             statement.executeUpdate();
 
@@ -119,7 +120,7 @@ public class TransactionRepositoryImpl implements TransactionRepository {
                 .findAny();
 
         if (!optionalAccountTo.isPresent() || !optionalAccountFrom.isPresent()) {
-            return true;
+            return false;
         }
 
         Account accountTo = optionalAccountTo.get();

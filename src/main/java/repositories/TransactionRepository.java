@@ -9,7 +9,7 @@ public interface TransactionRepository {
 
     Set<Transaction> getAll();
 
-    Transaction getById(int id);
+    Transaction getById(String  id);
 
     Response makeTransaction(Transaction transaction);
 

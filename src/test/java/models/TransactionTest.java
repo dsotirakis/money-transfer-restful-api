@@ -9,11 +9,11 @@ import static org.junit.Assert.assertEquals;
  */
 class TransactionTest {
 
-    private Transaction transaction = new Transaction(1, 1, 2, 1.0);
+    private Transaction transaction = new Transaction("1", 1, 2, 1.0);
 
     @Test
     void getId() {
-        assertEquals(transaction.getId(), 1);
+        assertEquals(transaction.getId(), "1");
     }
 
     @Test

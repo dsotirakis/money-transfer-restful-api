@@ -10,7 +10,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public class Transaction {
 
     @JsonIgnore
-    private int id;
+    private String id;
     private int accountTo;
     private int accountFrom;
     private double amount;
@@ -25,14 +25,14 @@ public class Transaction {
         this.amount = amount;
     }
 
-    public Transaction(int id, int accountTo, int accountFrom, double amount) {
+    public Transaction(String id, int accountTo, int accountFrom, double amount) {
         this.id = id;
         this.accountTo = accountTo;
         this.accountFrom = accountFrom;
         this.amount = amount;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 

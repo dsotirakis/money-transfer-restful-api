@@ -23,7 +23,7 @@ public class TransactionRouter {
 
     @GET
     @Path("{id}")
-    public Transaction getById(@PathParam("id") int id) {
+    public Transaction getById(@PathParam("id") String id) {
         return transactionRepo.getById(id);
     }
 
