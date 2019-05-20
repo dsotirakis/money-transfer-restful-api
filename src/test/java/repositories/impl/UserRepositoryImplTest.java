@@ -3,6 +3,8 @@ package repositories.impl;
 import models.User;
 import org.junit.jupiter.api.*;
 import repositories.InMemoryDatabase;
+import repositories.RepositoryGenerator;
+import repositories.UserRepository;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertNull;
@@ -10,7 +12,7 @@ import static org.junit.jupiter.api.MethodOrderer.*;
 
 class UserRepositoryImplTest {
 
-    private UserRepositoryImpl userRepository = new UserRepositoryImpl();
+    private UserRepository userRepository = RepositoryGenerator.getUserRepository();
 
     @BeforeAll
     static void setUp() {

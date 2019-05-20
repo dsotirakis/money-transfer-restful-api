@@ -21,8 +21,7 @@ public class AccountRepositoryImpl implements AccountRepository {
     private static final Set<Account> accountCache = new HashSet<>();
 
     public AccountRepositoryImpl() {
-        if (accountCache.isEmpty())
-            cacheAccounts();
+        cacheAccounts();
     }
 
     private static void cacheAccounts() {

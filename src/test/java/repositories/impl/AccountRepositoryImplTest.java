@@ -12,7 +12,7 @@ import static org.junit.jupiter.api.MethodOrderer.*;
 
 class AccountRepositoryImplTest {
 
-    private AccountRepository accountRepository = new AccountRepositoryImpl();
+    private AccountRepository accountRepository = RepositoryGenerator.getAccountRepository();
 
     @BeforeAll
     static void setUp() {

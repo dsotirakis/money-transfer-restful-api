@@ -24,7 +24,7 @@ import java.util.UUID;
 public class TransactionRepositoryImpl implements TransactionRepository {
 
     private final Set<Transaction> transactionCache = new HashSet<>();
-    private Set<Account> accountCache = RepositoryGenerator.getAccountRepository().getAll();;
+    private Set<Account> accountCache = RepositoryGenerator.getAccountRepository().getAll();
 
     public TransactionRepositoryImpl() {
         cacheTransactions();

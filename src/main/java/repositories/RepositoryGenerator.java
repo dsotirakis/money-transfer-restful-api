@@ -8,6 +8,8 @@ public class RepositoryGenerator {
     private static final UserRepository userRepo = new UserRepositoryImpl();
     private static final AccountRepository accountRepo = new AccountRepositoryImpl();
 
+    public RepositoryGenerator() {}
+
     public static UserRepository getUserRepository() {
         return userRepo;
     }

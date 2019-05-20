@@ -23,8 +23,7 @@ public class UserRepositoryImpl implements UserRepository {
     private static final Set<User> userCache = new HashSet<>();
 
     public UserRepositoryImpl() {
-        if (userCache.isEmpty())
-            cacheUsers();
+        cacheUsers();
     }
 
     private void cacheUsers() {
@@ -43,11 +42,7 @@ public class UserRepositoryImpl implements UserRepository {
                         resultSet.getString("EMAILADDRESS"));
                 userCache.add(user);
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
+        } catch (SQLException | IOException | ClassNotFoundException e) {
             e.printStackTrace();
         } finally {
             DbUtils.closeQuietly(connection, statement, resultSet);
