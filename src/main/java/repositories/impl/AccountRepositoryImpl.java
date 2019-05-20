@@ -89,7 +89,7 @@ public class AccountRepositoryImpl implements AccountRepository {
                 .findAny();
 
         if (!optionalAccount.isPresent())
-            accountNotFound();
+            return accountNotFound();
 
         Connection connection;
         PreparedStatement statement;
@@ -129,7 +129,7 @@ public class AccountRepositoryImpl implements AccountRepository {
                 .findAny();
 
         if (!optionalAccount.isPresent()) {
-            accountNotFound();
+            return accountNotFound();
         }
 
         Connection connection;
@@ -169,8 +169,8 @@ public class AccountRepositoryImpl implements AccountRepository {
         return Response.noContent().entity("Account updated successfully!").build();
     }
 
-    private void accountNotFound() {
-        Response.status(Response.Status.NOT_FOUND).entity("Account not found!").build();
+    private Response accountNotFound() {
+        return Response.status(Response.Status.NOT_FOUND).entity("Account not found!").build();
     }
 
     private Account updateIdToUpdatedAccount(Account previousAccount, Account updatedAccount) {

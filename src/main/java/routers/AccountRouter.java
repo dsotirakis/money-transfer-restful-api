@@ -7,6 +7,7 @@ import repositories.RepositoryGenerator;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+
 import java.util.Set;
 
 @Path("/accounts")
@@ -29,6 +30,12 @@ public class AccountRouter {
         return getAccountRepository().getById(id);
     }
 
+    @GET
+    @Path("/uname/{username}")
+    public Account getByUsername(@PathParam("username") String username) {
+        return getAccountRepository().getByUsername(username);
+    }
+
     @POST
     @Path("createAccount")
     public Response createAccount(Account account) {
@@ -38,20 +45,12 @@ public class AccountRouter {
     @DELETE
     @Path("{id}")
     public Response deleteAccount(@PathParam("id") int id) {
-        if (getAccountRepository().delete(id) != null) {
-            return Response.status(Response.Status.OK).entity("Account deleted successfully!").build();
-        } else {
-            return Response.status(Response.Status.NOT_FOUND).build();
-        }
+        return getAccountRepository().delete(id);
     }
 
     @PUT
     @Path("{id}")
     public Response updateAccount(@PathParam("id") int accountIdToUpdate, Account updatedAccount) {
-        if (getAccountRepository().update(accountIdToUpdate, updatedAccount) != null) {
-            return Response.status(Response.Status.OK).entity("Account updated successfully!").build();
-        } else {
-            return Response.status(Response.Status.NOT_FOUND).build();
-        }
+        return getAccountRepository().update(accountIdToUpdate, updatedAccount);
     }
 }

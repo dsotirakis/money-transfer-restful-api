@@ -77,7 +77,6 @@ public class UserRepositoryImplTest {
         @Test
         @Order(2)
         void delete() {
-            userRepository.getAll().forEach(e -> System.out.println(e.getId()));
             User userToDelete = userRepository.getById(0);
             userRepository.delete(userToDelete.getId());
             assertFalse(userRepository.getAll().contains(userToDelete));
@@ -91,7 +90,6 @@ public class UserRepositoryImplTest {
         @Test
         void update() {
             User updatedUser = new User("name1", "surname1", "newMail");
-            userRepository.getAll().forEach(e -> System.out.println(e.getId()));
             userRepository.update(1, updatedUser);
             assertNotNull(userRepository.getById(1));
             assertEquals(userRepository.getById(1).getEmail(), "newMail");
