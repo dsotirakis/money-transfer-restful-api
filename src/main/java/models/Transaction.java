@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.time.LocalDate;
+
 /**
  * This is the Transaction class, which utilizes a transaction between two end users.
  */
@@ -14,22 +16,34 @@ public class Transaction {
     private int accountTo;
     private int accountFrom;
     private double amount;
+    private String currency;
+    private LocalDate time;
 
     @JsonCreator
     public Transaction(
             @JsonProperty(value = "accountTo", required = true) int accountTo,
             @JsonProperty(value = "accountFrom", required = true) int accountFrom,
-            @JsonProperty(value = "amount", required = true) double amount) {
+            @JsonProperty(value = "amount", required = true) double amount,
+            @JsonProperty(value = "currency", required = true) String currency) {
         this.accountTo = accountTo;
         this.accountFrom = accountFrom;
         this.amount = amount;
+        this.currency = currency;
     }
 
-    public Transaction(String id, int accountTo, int accountFrom, double amount) {
+    public Transaction(
+            String id,
+            int accountTo,
+            int accountFrom,
+            double amount,
+            String currency,
+            LocalDate time) {
         this.id = id;
         this.accountTo = accountTo;
         this.accountFrom = accountFrom;
         this.amount = amount;
+        this.currency = currency;
+        this.time = time;
     }
 
     public String getId() {
@@ -48,6 +62,14 @@ public class Transaction {
         return amount;
     }
 
+    public String getCurrency() {
+        return currency;
+    }
+
+    LocalDate getTime() {
+        return time;
+    }
+
     @Override
     public String toString() {
         return "Transaction{" +
@@ -55,6 +77,8 @@ public class Transaction {
                 ", accountTo='" + accountTo + '\'' +
                 ", accountFrom='" + accountFrom + '\'' +
                 ", amount='" + amount + '\'' +
+                ", currency='" + currency + '\'' +
+                ", date='" + time.toString() + '\'' +
                 '}';
     }
 }

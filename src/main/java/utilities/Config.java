@@ -10,8 +10,6 @@ import org.apache.log4j.Logger;
  */
 public class Config {
 
-    private static Logger logger = Logger.getLogger(Config.class);
-
     private static Properties properties = new Properties();
 
     public static void loadProperties(String propertiesFile) throws IOException {

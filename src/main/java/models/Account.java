@@ -14,22 +14,27 @@ public class Account {
     private String username;
     private String password;
     private double balance;
+    private String currency;
+    private User user;
 
     @JsonCreator
     public Account(
             @JsonProperty(value = "username", required = true) String username,
             @JsonProperty(value = "password", required = true) String password,
-            @JsonProperty(value = "balance", required = true) double balance) {
+            @JsonProperty(value = "balance", required = true) double balance,
+            @JsonProperty(value = "currency", required = true) String currency) {
         this.username = username;
         this.password = password;
         this.balance = balance;
+        this.currency = currency;
     }
 
-    public Account(int id, String userName, String password, double balance) {
+    public Account(int id, String userName, String password, double balance, String currency) {
         this.id = id;
         this.username = userName;
         this.password = password;
         this.balance = balance;
+        this.currency = currency;
     }
 
     public int getId() {
@@ -48,6 +53,18 @@ public class Account {
         return this.balance;
     }
 
+    public String getCurrency() {
+        return currency;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
     @Override
     public String toString() {
         return "Account{" +
@@ -55,6 +72,8 @@ public class Account {
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
                 ", balance='" + balance + '\'' +
+                ", currency='" + currency + '\'' +
+                ", user='" + user + '\'' +
                 '}';
     }
 }

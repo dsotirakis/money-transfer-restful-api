@@ -1,9 +1,12 @@
 package repositories.impl;
 
 import models.Account;
+import models.User;
 import org.apache.commons.dbutils.DbUtils;
 import repositories.AccountRepository;
 import repositories.InMemoryDatabase;
+import repositories.RepositoryGenerator;
+import utilities.Utils;
 
 import javax.ws.rs.core.Response;
 import java.io.IOException;
@@ -37,7 +40,8 @@ public class AccountRepositoryImpl implements AccountRepository {
                         resultSet.getInt("ID"),
                         resultSet.getString("USERNAME"),
                         resultSet.getString("PASSWORD"),
-                        resultSet.getInt("BALANCE"));
+                        resultSet.getInt("BALANCE"),
+                        resultSet.getString("CURRENCY"));
                 accountCache.add(account);
             }
         } catch (SQLException | ClassNotFoundException | IOException e) {
@@ -48,6 +52,13 @@ public class AccountRepositoryImpl implements AccountRepository {
     }
 
     public Response add(Account account) {
+        User user = RepositoryGenerator.getUserRepository().getByMail(account.getUsername());
+        if (user == null) {
+            return Response.status(Response.Status.NOT_FOUND).entity("Account username didn't match with any user!").build();
+        }
+        if (Utils.isValidCurrencyCode(account.getCurrency())) {
+            return Response.status(Response.Status.NOT_FOUND).entity("Invalid currency!").build();
+        }
         Connection connection;
         PreparedStatement statement;
         try {
@@ -55,13 +66,14 @@ public class AccountRepositoryImpl implements AccountRepository {
             //Set auto commit to false
             Objects.requireNonNull(connection).setAutoCommit(false);
 
-            String string = ("INSERT INTO ACCOUNTS (username, password, balance) VALUES (?, ?, ?)");
+            String string = ("INSERT INTO ACCOUNTS (username, password, balance, currency) VALUES (?, ?, ?, ?)");
 
             // Used prepare statement methods in order not to pass direct strings, to care about SQL Injection issues.
             statement = connection.prepareStatement(string);
             statement.setString(1, account.getUsername());
             statement.setString(2, account.getPassword());
             statement.setDouble(3, account.getBalance());
+            statement.setString(4, account.getCurrency());
 
             statement.executeUpdate();
 
@@ -77,6 +89,7 @@ public class AccountRepositoryImpl implements AccountRepository {
             System.out.println(ex.toString());
         }
 
+        account.setUser(user);
         accountCache.add(account);
 
         return Response.status(Response.Status.CREATED).entity("Account created successfully!").build();
@@ -177,7 +190,8 @@ public class AccountRepositoryImpl implements AccountRepository {
                 previousAccount.getId(),
                 updatedAccount.getUsername(),
                 updatedAccount.getPassword(),
-                updatedAccount.getBalance());
+                updatedAccount.getBalance(),
+                updatedAccount.getCurrency());
     }
 
     public Set<Account> getAll() {

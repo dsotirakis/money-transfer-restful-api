@@ -1,10 +1,7 @@
 package routers;
 
-import org.eclipse.jetty.server.Server;
-import org.eclipse.jetty.servlet.ServletContextHandler;
-import org.eclipse.jetty.servlet.ServletHolder;
+import models.User;
 import org.glassfish.jersey.server.ResourceConfig;
-import org.glassfish.jersey.servlet.ServletContainer;
 import org.glassfish.jersey.test.JerseyTest;
 import org.glassfish.jersey.test.TestProperties;
 import org.junit.jupiter.api.AfterAll;
@@ -12,7 +9,7 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import models.Account;
-import repositories.InMemoryDatabase;
+import repositories.RepositoryGenerator;
 
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
@@ -27,8 +24,6 @@ import static org.junit.Assert.*;
 
 public class AccountRouterTest extends JerseyTest {
 
-    private static Server jettyServer;
-
     @Override
     public Application configure() {
         enable(TestProperties.LOG_TRAFFIC);
@@ -38,23 +33,7 @@ public class AccountRouterTest extends JerseyTest {
 
     @BeforeAll
     static void setup() throws Exception {
-        ServletContextHandler context = new ServletContextHandler(ServletContextHandler.SESSIONS);
-        context.setContextPath("/");
-
-        jettyServer = new Server(8080);
-        jettyServer.setHandler(context);
-
-        ServletHolder jerseyServlet = context.addServlet(
-                ServletContainer.class, "/*");
-        jerseyServlet.setInitOrder(1);
-
-        // Tells the Jersey Servlet which REST service/class to load.
-        jerseyServlet.setInitParameter(
-                "jersey.config.server.provider.classnames",
-                AccountRouter.class.getCanonicalName());
-
-        InMemoryDatabase.generateData();
-        jettyServer.start();
+        AppResourceConfig.setUp();
     }
 
     @Test
@@ -73,20 +52,20 @@ public class AccountRouterTest extends JerseyTest {
 
     @Test
     void getById_DoesntExist() {
-        Response response = getRequest("4").get();
+        Response response = getRequest("6").get();
         assertEquals("should return status 204", 204, response.getStatus());
     }
 
     @Test
     void getByUsername() {
-        Response response = getRequest("uname/name3").get();
+        Response response = getRequest("uname/name3@gmail.com").get();
         assertEquals("should return status 200", 200, response.getStatus());
         assertNotNull("Connection should be made.", response.getEntity().toString());
     }
 
     @Test
     void getByUsername_usernameDoesntExist() {
-        Response response = getRequest("uname/name5").get();
+        Response response = getRequest("uname/name7@gmail.com").get();
         assertEquals("should return status 204", 204, response.getStatus());
         assertNotNull("Connection should be made.", response.getEntity().toString());
 
@@ -94,11 +73,33 @@ public class AccountRouterTest extends JerseyTest {
 
     @Test
     void createAccount() {
-        Account newAccount = new Account("name4", "password4", 100.0);
+        RepositoryGenerator.getUserRepository().add(new User("newName", "newSurname", "name4@gmail.com"));
+        Account newAccount = new Account("name4@gmail.com", "password4", 100.0, "USD");
         Response response = getRequest("createAccount")
                 .post(Entity.entity(newAccount, MediaType.APPLICATION_JSON));
         assertEquals("Should return status 201", 201, response.getStatus());
         assertNotNull("Connection should be made.", response.getEntity());
+        RepositoryGenerator.getUserRepository().delete(0);
+    }
+
+    @Test
+    void createAccount_userForTheAccountDoesntExist() {
+        Account newAccount = new Account("name6@gmail.com", "password4", 100.0, "USD");
+        Response response = getRequest("createAccount")
+                .post(Entity.entity(newAccount, MediaType.APPLICATION_JSON));
+        assertEquals("Should return status 404", 404, response.getStatus());
+        assertNotNull("Connection should be made.", response.getEntity());
+    }
+
+    @Test
+    void createAccount_invalidCurrencyCode() {
+        RepositoryGenerator.getUserRepository().add(new User("newName", "newSurname", "name4@gmail.com"));
+        Account newAccount = new Account("name4@gmail.com", "password4", 100.0, "ZZZ");
+        Response response = getRequest("createAccount")
+                .post(Entity.entity(newAccount, MediaType.APPLICATION_JSON));
+        assertEquals("Should return status 404", 404, response.getStatus());
+        assertNotNull("Connection should be made.", response.getEntity());
+        RepositoryGenerator.getUserRepository().delete(0);
     }
 
     @Test
@@ -109,27 +110,27 @@ public class AccountRouterTest extends JerseyTest {
 
     @Test
     void deleteAccount_accountDoesntExist() {
-        Response response = getRequest("4").delete();
+        Response response = getRequest("6").delete();
         assertEquals("Should return status 404", 404, response.getStatus());
     }
 
     @Test
     void updateAccount() {
-        Account accountToUpdate = new Account("name2", "password2", 101.0);
+        Account accountToUpdate = new Account("name2", "password2", 101.0, "USD");
         Response response = getRequest("2").put(Entity.entity(accountToUpdate, MediaType.APPLICATION_JSON));
         assertEquals("Should return status 200", 204, response.getStatus());
     }
 
     @Test
     void updateAccount_accountDoesntExist() {
-        Account accountToUpdate = new Account("name1", "password1", 101.0);
+        Account accountToUpdate = new Account("name1", "password1", 101.0, "USD");
         Response response = getRequest("6").put(Entity.entity(accountToUpdate, MediaType.APPLICATION_JSON));
         assertEquals("Should return status 404", 404, response.getStatus());
     }
 
     @AfterAll
     static void terminate() throws Exception {
-        jettyServer.stop();
+        AppResourceConfig.tearDown();
     }
 
     Invocation.Builder getRequest(String path) {

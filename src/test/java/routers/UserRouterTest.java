@@ -12,11 +12,7 @@ import javax.ws.rs.core.Application;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import org.eclipse.jetty.server.Server;
-import org.eclipse.jetty.servlet.ServletContextHandler;
-import org.eclipse.jetty.servlet.ServletHolder;
 import org.glassfish.jersey.server.ResourceConfig;
-import org.glassfish.jersey.servlet.ServletContainer;
 import org.glassfish.jersey.test.JerseyTest;
 import org.glassfish.jersey.test.TestProperties;
 import org.junit.jupiter.api.AfterAll;
@@ -24,38 +20,19 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import models.User;
-import repositories.InMemoryDatabase;
 
 public class UserRouterTest extends JerseyTest {
-
-    private static Server jettyServer;
 
     @Override
     public Application configure() {
         enable(TestProperties.LOG_TRAFFIC);
         enable(TestProperties.DUMP_ENTITY);
-        return new ResourceConfig(AccountRouter.class);
+        return new ResourceConfig(UserRouter.class);
     }
 
     @BeforeAll
     static void setup() throws Exception {
-        ServletContextHandler context = new ServletContextHandler(ServletContextHandler.SESSIONS);
-        context.setContextPath("/");
-
-        jettyServer = new Server(8080);
-        jettyServer.setHandler(context);
-
-        ServletHolder jerseyServlet = context.addServlet(
-                ServletContainer.class, "/*");
-        jerseyServlet.setInitOrder(1);
-
-        // Tells the Jersey Servlet which REST service/class to load.
-        jerseyServlet.setInitParameter(
-                "jersey.config.server.provider.classnames",
-                UserRouter.class.getCanonicalName());
-
-        InMemoryDatabase.generateData();
-        jettyServer.start();
+        AppResourceConfig.setUp();
     }
 
     @Test
@@ -75,7 +52,7 @@ public class UserRouterTest extends JerseyTest {
 
     @Test
     void getById_DoesntExist() {
-        Response response = getRequest("4").get();
+        Response response = getRequest("6").get();
         assertEquals("should return status 204", 204, response.getStatus());
     }
 
@@ -88,7 +65,7 @@ public class UserRouterTest extends JerseyTest {
 
     @Test
     void getByName_nameDoesntExist() {
-        Response response = getRequest("name/name5").get();
+        Response response = getRequest("name/name7").get();
         assertEquals("should return status 204", 204, response.getStatus());
         assertNotNull("Connection should be made.", response.getEntity().toString());
     }
@@ -102,7 +79,7 @@ public class UserRouterTest extends JerseyTest {
 
     @Test
     void getBySurname_surnameDoesntExist() {
-        Response response = getRequest("sname/surname5").get();
+        Response response = getRequest("sname/surname7").get();
         assertEquals("should return status 204", 204, response.getStatus());
         assertNotNull("Connection should be made.", response.getEntity().toString());
     }
@@ -116,7 +93,7 @@ public class UserRouterTest extends JerseyTest {
 
     @Test
     void getByEmail_emailDoesntExist() {
-        Response response = getRequest("mail/name4@gmail.com").get();
+        Response response = getRequest("mail/name6@gmail.com").get();
         assertEquals("should return status 204", 204, response.getStatus());
         assertNotNull("Connection should be made.", response.getEntity().toString());
     }
@@ -138,7 +115,7 @@ public class UserRouterTest extends JerseyTest {
 
     @Test
     void deleteUser_userDoesntExist() {
-        Response response = getRequest("4").delete();
+        Response response = getRequest("6").delete();
         assertEquals("Should return status 404", 404, response.getStatus());
     }
 
@@ -158,7 +135,7 @@ public class UserRouterTest extends JerseyTest {
 
     @AfterAll
     static void terminate() throws Exception {
-        jettyServer.stop();
+        AppResourceConfig.tearDown();
     }
 
     Invocation.Builder getRequest(String path) {

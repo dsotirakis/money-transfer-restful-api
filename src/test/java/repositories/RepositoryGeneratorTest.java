@@ -31,7 +31,7 @@ class RepositoryGeneratorTest {
 
         @Test
         void getUserRepository_checkSize() {
-            assertEquals(RepositoryGenerator.getUserRepository().getAll().size(), 3);
+            assertEquals(RepositoryGenerator.getUserRepository().getAll().size(), 5);
         }
 
         @Test
@@ -42,7 +42,6 @@ class RepositoryGeneratorTest {
             assertTrue(idSet.containsAll(new HashSet<Integer>() {{ add(1); add(2); add(3); }}));
         }
     }
-
 
     @Nested
     @DisplayName("AccountRepositoryGenerator Tests")
@@ -55,7 +54,7 @@ class RepositoryGeneratorTest {
 
         @Test
         void getAccountRepository_checkSize() {
-            assertEquals(RepositoryGenerator.getAccountRepository().getAll().size(), 3);
+            assertEquals(RepositoryGenerator.getAccountRepository().getAll().size(), 5);
         }
 
         @Test
@@ -65,6 +64,5 @@ class RepositoryGeneratorTest {
                     .collect(Collectors.toSet());
             assertTrue(idSet.containsAll(new HashSet<Integer>() {{ add(1); add(2); add(3); }}));
         }
-
     }
 }

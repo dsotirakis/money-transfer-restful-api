@@ -11,7 +11,7 @@ import static org.junit.Assert.assertTrue;
  */
 class UtilsTest {
 
-    private Account account = new Account(1, "userName", "password", 1.0);
+    private Account account = new Account(1, "userName", "password", 1.0, "USD");
 
     @Test
     void hasSufficientAmountToPay() {

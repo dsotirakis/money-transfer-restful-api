@@ -41,5 +41,4 @@ public class MoneyTransferApp {
         new RepositoryGenerator();
         start();
     }
-
 }

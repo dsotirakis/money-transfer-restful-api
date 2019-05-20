@@ -1,8 +1,8 @@
 package routers;
 
 import models.Transaction;
+import repositories.RepositoryGenerator;
 import repositories.TransactionRepository;
-import repositories.impl.TransactionRepositoryImpl;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -13,23 +13,25 @@ import java.util.Set;
 @Produces(MediaType.APPLICATION_JSON)
 public class TransactionRouter {
 
-    private TransactionRepository transactionRepo = new TransactionRepositoryImpl();
+    private TransactionRepository getTransactionRepository() {
+        return RepositoryGenerator.getTransactionRepository();
+    }
 
     @GET
     @Path("getAll")
-    public Set<Transaction> getAllAccounts() {
-        return transactionRepo.getAll();
+    public Set<Transaction> getAllTransactions() {
+        return getTransactionRepository().getAll();
     }
 
     @GET
     @Path("{id}")
     public Transaction getById(@PathParam("id") String id) {
-        return transactionRepo.getById(id);
+        return getTransactionRepository().getById(id);
     }
 
     @POST
     @Path("makeTransaction")
     public Response makeTransaction(Transaction transaction) {
-        return transactionRepo.makeTransaction(transaction);
+        return getTransactionRepository().makeTransaction(transaction);
     }
 }

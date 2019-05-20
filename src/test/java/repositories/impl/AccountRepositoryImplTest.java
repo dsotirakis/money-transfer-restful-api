@@ -2,6 +2,7 @@ package repositories.impl;
 
 
 import models.Account;
+import models.User;
 import org.junit.jupiter.api.*;
 import repositories.AccountRepository;
 import repositories.InMemoryDatabase;
@@ -26,7 +27,7 @@ class AccountRepositoryImplTest {
         
         @Test
         void getAll() {
-            assertEquals(accountRepository.getAll().size(), 3);
+            assertEquals(accountRepository.getAll().size(), 5);
         }
 
         @Test
@@ -38,25 +39,25 @@ class AccountRepositoryImplTest {
 
         @Test
         void getById_idDoesntExist() {
-            assertNull(accountRepository.getById(4));
+            assertNull(accountRepository.getById(6));
         }
 
         @Test
         void getByUserName() {
-            assertEquals(accountRepository.getByUsername("name1").getUsername(), "name1");
-            assertEquals(accountRepository.getByUsername("name2").getUsername(), "name2");
-            assertEquals(accountRepository.getByUsername("name3").getUsername(), "name3");
+            assertEquals(accountRepository.getByUsername("name1@gmail.com").getUsername(), "name1@gmail.com");
+            assertEquals(accountRepository.getByUsername("name2@gmail.com").getUsername(), "name2@gmail.com");
+            assertEquals(accountRepository.getByUsername("name3@gmail.com").getUsername(), "name3@gmail.com");
         }
 
         @Test
         void getByUserName_userNameDoesntExist() {
-            assertNull(accountRepository.getByUsername("name4"));
+            assertNull(accountRepository.getByUsername("name6@gmail.com"));
         }
 
         // Check the static method behavior.
         @Test
         void getAccountCache() {
-            assertEquals(RepositoryGenerator.getAccountRepository().getAll().size(), 3);
+            assertEquals(RepositoryGenerator.getAccountRepository().getAll().size(), 5);
         }
     }
 
@@ -68,12 +69,29 @@ class AccountRepositoryImplTest {
         @Test
         @Order(1)
         void add() {
-            Account newAccount = new Account("name4", "password4", 100.0);
+            RepositoryGenerator.getUserRepository().add(new User("newName", "newSurname", "name4@gmail.com"));
+            Account newAccount = new Account("name4@gmail.com", "password4", 100.0, "USD");
             accountRepository.add(newAccount);
             assertTrue(accountRepository.getAll().contains(newAccount));
+            RepositoryGenerator.getUserRepository().delete(0);
         }
 
-        // TODO: 5/19/19 check id 0
+        @Test
+        void add_userForTheAccountDoesntExist() {
+            Account newAccount = new Account("name6@gmail.com", "password4", 100.0, "USD");
+            accountRepository.add(newAccount);
+            assertFalse(accountRepository.getAll().contains(newAccount));
+        }
+
+        @Test
+        void add_invalidCurrencyCode() {
+            RepositoryGenerator.getUserRepository().add(new User("newName", "newSurname", "name4@gmail.com"));
+            Account newAccount = new Account("name4@gmail.com", "password4", 100.0, "ZZZ");
+            accountRepository.add(newAccount);
+            assertFalse(accountRepository.getAll().contains(newAccount));
+            RepositoryGenerator.getUserRepository().delete(0);
+        }
+
         @Test
         @Order(2)
         void delete() {
@@ -84,12 +102,12 @@ class AccountRepositoryImplTest {
 
         @Test
         void delete_accountDoesntExist() {
-            assertEquals(accountRepository.delete(4).getStatus(), 404);
+            assertEquals(accountRepository.delete(6).getStatus(), 404);
         }
 
         @Test
         void update() {
-            Account updatedAccount = new Account("name1", "password1", 100.0);
+            Account updatedAccount = new Account("name1@gmail.com", "password1", 100.0, "USD");
             accountRepository.update(1, updatedAccount);
             assertNotNull(accountRepository.getById(1));
             assertEquals(accountRepository.getById(1).getBalance(), 100.0, 0.0);
@@ -97,8 +115,8 @@ class AccountRepositoryImplTest {
 
         @Test
         void update_accountDoesntExist() {
-            Account updatedAccount = new Account("name1", "password1", 100.0);
-            assertEquals(accountRepository.update(4, updatedAccount).getStatus(), 404);
+            Account updatedAccount = new Account("name1@gmail.com", "password1", 100.0, "USD");
+            assertEquals(accountRepository.update(6, updatedAccount).getStatus(), 404);
         }
     }
 }

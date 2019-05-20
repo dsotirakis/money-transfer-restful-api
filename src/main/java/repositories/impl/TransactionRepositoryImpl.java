@@ -8,13 +8,12 @@ import repositories.RepositoryGenerator;
 import repositories.TransactionRepository;
 import utilities.Utils;
 
-import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.Response;
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Optional;
@@ -27,6 +26,7 @@ public class TransactionRepositoryImpl implements TransactionRepository {
     private Set<Account> accountCache = RepositoryGenerator.getAccountRepository().getAll();
 
     public TransactionRepositoryImpl() {
+
         cacheTransactions();
     }
 
@@ -34,6 +34,7 @@ public class TransactionRepositoryImpl implements TransactionRepository {
         Connection connection = null;
         PreparedStatement statement = null;
         ResultSet resultSet = null;
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:SS");
         try {
             connection = InMemoryDatabase.getConnection();
             statement = Objects.requireNonNull(connection).prepareStatement("SELECT * FROM Transactions");
@@ -43,7 +44,9 @@ public class TransactionRepositoryImpl implements TransactionRepository {
                         resultSet.getString("ID"),
                         resultSet.getInt("ACCOUNTTO"),
                         resultSet.getInt("ACCOUNTFROM"),
-                        resultSet.getDouble("AMOUNT"));
+                        resultSet.getDouble("AMOUNT"),
+                        resultSet.getString("CURRENCY"),
+                        LocalDate.parse(resultSet.getString("DATE_TRANS"), formatter));
                 transactionCache.add(transaction);
             }
         } catch (SQLException | ClassNotFoundException | IOException e) {
@@ -70,9 +73,11 @@ public class TransactionRepositoryImpl implements TransactionRepository {
 
     @Override
     public synchronized Response makeTransaction(Transaction transaction) {
-        if (updateAccounts(transaction.getAccountTo(), transaction.getAccountFrom(), transaction.getAmount())) {
-            return Response.status(Response.Status.NOT_FOUND)
-                    .build();
+        if (Utils.isValidCurrencyCode(transaction.getCurrency())) {
+            return Response.status(Response.Status.NOT_FOUND).entity("Invalid currency!").build();
+        }
+        if (updateAccounts(transaction.getAccountTo(), transaction.getAccountFrom(), transaction.getAmount()).getStatus() != 204) {
+            return updateAccounts(transaction.getAccountTo(), transaction.getAccountFrom(), transaction.getAmount());
         }
 
         Connection connection;
@@ -82,7 +87,7 @@ public class TransactionRepositoryImpl implements TransactionRepository {
             //Set auto commit to false
             Objects.requireNonNull(connection).setAutoCommit(false);
 
-            String string = ("INSERT INTO TRANSACTIONS (id, accountTo, accountFrom, amount) VALUES (?, ?, ?, ?)");
+            String string = ("INSERT INTO TRANSACTIONS (id, accountTo, accountFrom, amount, currency, date_trans) VALUES (?, ?, ?, ?, ?, ?)");
 
             // Used prepare statement methods in order not to pass direct strings, to care about SQL Injection issues.
             statement = connection.prepareStatement(string);
@@ -90,6 +95,8 @@ public class TransactionRepositoryImpl implements TransactionRepository {
             statement.setInt(2, transaction.getAccountTo());
             statement.setInt(3, transaction.getAccountFrom());
             statement.setDouble(4, transaction.getAmount());
+            statement.setString(5, transaction.getCurrency());
+            statement.setDate(6, Date.valueOf(LocalDateTime.now().toLocalDate()));
 
             statement.executeUpdate();
 
@@ -106,11 +113,12 @@ public class TransactionRepositoryImpl implements TransactionRepository {
         }
 
         transactionCache.add(transaction);
+        System.out.println(transactionCache.size());
 
-        return Response.status(Response.Status.OK).build();
+        return Response.status(Response.Status.CREATED).build();
     }
 
-    private boolean updateAccounts(int accountIdTo, int accountIdFrom, double amount) {
+    private Response updateAccounts(int accountIdTo, int accountIdFrom, double amount) {
         Optional<Account> optionalAccountTo = accountCache.stream()
                 .filter(account -> account.getId() == accountIdTo)
                 .findAny();
@@ -120,28 +128,31 @@ public class TransactionRepositoryImpl implements TransactionRepository {
                 .findAny();
 
         if (!optionalAccountTo.isPresent() || !optionalAccountFrom.isPresent()) {
-            return false;
+            return Response.status(Response.Status.NOT_FOUND).entity("Account not present.").build();
         }
 
         Account accountTo = optionalAccountTo.get();
         Account accountFrom = optionalAccountFrom.get();
 
-        // TODO: 5/19/19 Check that bad request here.
         if (!Utils.hasSufficientAmountToPay(accountFrom, amount)) {
-            throw new WebApplicationException("Not sufficient amount left", Response.Status.BAD_REQUEST);
+            return Response.status(Response.Status.BAD_REQUEST).entity("Insufficient amount.").build();
         }
 
         Account updatedAccountTo = new Account(accountTo.getId(),
                 accountTo.getUsername(),
                 accountTo.getPassword(),
-                accountTo.getBalance() + amount);
+                accountTo.getBalance() + amount,
+                accountTo.getCurrency());
 
         Account updatedAccountFrom = new Account(accountFrom.getId(),
                 accountFrom.getUsername(),
                 accountFrom.getPassword(),
-                accountFrom.getBalance() - amount);
+                accountFrom.getBalance() - amount,
+                accountFrom.getCurrency());
 
-        return RepositoryGenerator.getAccountRepository().update(updatedAccountTo.getId(), updatedAccountTo) == null ||
-                RepositoryGenerator.getAccountRepository().update(updatedAccountFrom.getId(), updatedAccountFrom) == null;
+        RepositoryGenerator.getAccountRepository().update(updatedAccountTo.getId(), updatedAccountTo);
+        RepositoryGenerator.getAccountRepository().update(updatedAccountFrom.getId(), updatedAccountFrom);
+
+        return Response.noContent().build();
     }
 }

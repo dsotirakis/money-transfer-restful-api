@@ -26,7 +26,7 @@ class UserRepositoryImplTest {
 
         @Test
         void getAll() {
-            assertEquals(userRepository.getAll().size(), 3);
+            assertEquals(userRepository.getAll().size(), 5);
         }
 
         @Test
@@ -38,7 +38,7 @@ class UserRepositoryImplTest {
 
         @Test
         void getById_idDoesntExist() {
-            assertNull(userRepository.getById(4));
+            assertNull(userRepository.getById(6));
         }
 
         @Test
@@ -50,7 +50,7 @@ class UserRepositoryImplTest {
 
         @Test
         void getByName_nameDoesntExist() {
-            assertNull(userRepository.getByName("name4"));
+            assertNull(userRepository.getByName("name6"));
         }
 
         @Test
@@ -79,7 +79,7 @@ class UserRepositoryImplTest {
 
         @Test
         void getUserCache() {
-            assertEquals(userRepository.getAll().size(), 3);
+            assertEquals(userRepository.getAll().size(), 5);
         }
     }
 
@@ -106,7 +106,7 @@ class UserRepositoryImplTest {
 
         @Test
         void delete_userDoesntExist() {
-            assertEquals(userRepository.delete(4).getStatus(), 404);
+            assertEquals(userRepository.delete(6).getStatus(), 404);
         }
 
         @Test
@@ -117,7 +117,6 @@ class UserRepositoryImplTest {
             assertNotNull(userRepository.getById(1));
             assertEquals(userRepository.getById(1).getEmail(), "newMail");
 
-            // TODO Check this out.
             // Revert user to initial state.
             updatedUser = new User("name1", "surname1", "name1@gmail.com");
             userRepository.update(1, updatedUser);
@@ -126,7 +125,7 @@ class UserRepositoryImplTest {
         @Test
         void update_userDoesntExist() {
             User updatedUser = new User("name1", "surname1", "mail1");
-            assertEquals(userRepository.update(4, updatedUser).getStatus(), 404);
+            assertEquals(userRepository.update(6, updatedUser).getStatus(), 404);
         }
     }
 }
