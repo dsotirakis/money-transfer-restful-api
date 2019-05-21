@@ -20,6 +20,10 @@ mvn clean install; mvn exec:java
 
 This will generate a Jetty Server, able to communicate with the API.
 
+## Application documentation
+
+The application documentation can be found [here](DOCUMENTATION.md).
+
 ## API documentation
 
 The API documentation can be found [here](api_docs/API.md).
