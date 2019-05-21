@@ -22,7 +22,7 @@ This will generate a Jetty Server, able to communicate with the API.
 
 ## Application documentation
 
-The application documentation can be found [here](DOCUMENTATION.md).
+The application documentation can be found [here](DOCUMENT.md).
 
 ## API documentation
 
