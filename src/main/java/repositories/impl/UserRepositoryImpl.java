@@ -116,7 +116,6 @@ public class UserRepositoryImpl implements UserRepository {
         PreparedStatement statement;
         try {
             connection = InMemoryDatabase.getConnection();
-            //Set auto commit to false
             Objects.requireNonNull(connection).setAutoCommit(false);
 
             String string = ("DELETE FROM Users WHERE id = ? ");
@@ -165,7 +164,6 @@ public class UserRepositoryImpl implements UserRepository {
         PreparedStatement statement;
         try {
             connection = InMemoryDatabase.getConnection();
-            //Set auto commit to false
             Objects.requireNonNull(connection).setAutoCommit(false);
 
             String string = ("UPDATE Users SET name = ?, surname = ?, emailaddress = ? WHERE id = ?");

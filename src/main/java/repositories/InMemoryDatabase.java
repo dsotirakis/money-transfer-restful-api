@@ -48,7 +48,7 @@ public class InMemoryDatabase {
 
     /**
      * This method is responsible for generating the data which are used mostly for testing the api. The DATA_GENERATED
-     * flag is used so there is no need for the connection to occur multiple times/
+     * flag is used so there is no need for the connection to occur multiple times.
      */
     public static void generateData() {
         if (DATA_GENERATED)
