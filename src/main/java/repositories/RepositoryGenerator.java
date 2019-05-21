@@ -4,6 +4,9 @@ import repositories.impl.AccountRepositoryImpl;
 import repositories.impl.TransactionRepositoryImpl;
 import repositories.impl.UserRepositoryImpl;
 
+/**
+ * This class contains static methods and repositories, in order to be widely accessible to every instance anytime.
+ */
 public class RepositoryGenerator {
 
     private static final UserRepository userRepo = new UserRepositoryImpl();

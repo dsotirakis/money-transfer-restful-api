@@ -5,6 +5,9 @@ import models.Account;
 import javax.ws.rs.core.Response;
 import java.util.Set;
 
+/**
+ * This is an account repository interface which implements methods from the Repository< T > interface.
+ */
 public interface AccountRepository extends Repository<Account> {
 
     Response add(Account account);
@@ -18,4 +21,8 @@ public interface AccountRepository extends Repository<Account> {
     Account getById(int id);
 
     Account getByUsername(String userName);
+
+    Response objectNotFound();
+
+    Account updateIdOfUpdatedObject(Account previousObject, Account updatedObject);
 }

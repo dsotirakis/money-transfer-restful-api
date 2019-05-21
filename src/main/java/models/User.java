@@ -17,9 +17,9 @@ public class User {
 
     @JsonCreator
     public User(
-                @JsonProperty(value = "name", required = true) String name,
-                @JsonProperty(value = "surname", required = true) String surname,
-                @JsonProperty(value = "email", required = true) String email) {
+            @JsonProperty(value = "name", required = true) String name,
+            @JsonProperty(value = "surname", required = true) String surname,
+            @JsonProperty(value = "email", required = true) String email) {
         this.name = name;
         this.surname = surname;
         this.email = email;

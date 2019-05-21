@@ -16,7 +16,9 @@ import org.apache.commons.dbutils.DbUtils;
 import javax.ws.rs.core.Response;
 
 /**
- * This class is implementing a User Repository.
+ * This class implements a user repository. It is responsible for manipulating users in the database,
+ * as well as connecting and caching entities in a static Set, in order to be widely accessible from all the
+ * modules.
  */
 public class UserRepositoryImpl implements UserRepository {
 
@@ -26,6 +28,9 @@ public class UserRepositoryImpl implements UserRepository {
         cacheUsers();
     }
 
+    /**
+     * This method is used in order to cache the users. Every time a CRUD operation occurs, the cache is updated.
+     */
     private void cacheUsers() {
         Connection connection = null;
         PreparedStatement statement = null;
@@ -49,7 +54,14 @@ public class UserRepositoryImpl implements UserRepository {
         }
     }
 
-    public Response add(User user) {
+    /**
+     * This method adds a new user to the database.
+     *
+     * @param newUser the new user to be stored.
+     *
+     * @return a response, indicating the result of the POST method.
+     */
+    public Response add(User newUser) {
 
         Connection connection;
         PreparedStatement statement;
@@ -62,9 +74,9 @@ public class UserRepositoryImpl implements UserRepository {
 
             // Used prepare statement methods in order not to pass direct strings, to care about SQL Injection issues.
             statement = connection.prepareStatement(string);
-            statement.setString(1, user.getName());
-            statement.setString(2, user.getSurname());
-            statement.setString(3, user.getEmail());
+            statement.setString(1, newUser.getName());
+            statement.setString(2, newUser.getSurname());
+            statement.setString(3, newUser.getEmail());
 
             statement.executeUpdate();
 
@@ -80,18 +92,25 @@ public class UserRepositoryImpl implements UserRepository {
             System.out.println(ex.toString());
         }
 
-        userCache.add(user);
+        userCache.add(newUser);
 
         return Response.status(Response.Status.CREATED).entity("User created successfully!").build();
     }
 
+    /**
+     * This method deletes a user from the database.
+     *
+     * @param id the user id to be deleted.
+     *
+     * @return a response, indicating the result of the DELETE method.
+     */
     public Response delete(int id) {
         Optional<User> optionalUser = userCache.stream()
                 .filter(user -> user.getId() == id)
                 .findAny();
 
         if (!optionalUser.isPresent())
-            return userNotFound();
+            return objectNotFound();
 
         Connection connection;
         PreparedStatement statement;
@@ -125,13 +144,21 @@ public class UserRepositoryImpl implements UserRepository {
         return Response.status(Response.Status.NO_CONTENT).entity("User deleted successfully!").build();
     }
 
+    /**
+     * This method updates a user in the database.
+     *
+     * @param id the user's id to be updated.
+     * @param updatedUser the new user attributes.
+     *
+     * @return a response, indicating the result of the PUT method.
+     */
     public Response update(int id, User updatedUser) {
         Optional<User> optionalUser = userCache.stream()
                 .filter(user -> user.getId() == id)
                 .findAny();
 
         if (!optionalUser.isPresent()) {
-            return userNotFound();
+            return objectNotFound();
         }
 
         Connection connection;
@@ -165,17 +192,30 @@ public class UserRepositoryImpl implements UserRepository {
 
         userCache.remove(optionalUser.get());
 
-        updatedUser = updateIdToUpdatedAccount(optionalUser.get(), updatedUser);
+        updatedUser = updateIdOfUpdatedObject(optionalUser.get(), updatedUser);
         userCache.add(updatedUser);
 
         return Response.noContent().entity("User updated successfully!").build();
     }
 
-    private Response userNotFound() {
+    /**
+     * This method is responsible for returning a NOT_FOUND response in case the user does not exist.
+     *
+     * @return a response, indicating that the user is not found.
+     */
+    public Response objectNotFound() {
         return Response.status(Response.Status.NOT_FOUND).entity("User not found!").build();
     }
 
-    private User updateIdToUpdatedAccount(User previousUser, User updatedUser) {
+    /**
+     * This method makes sure that the new updated user is stored to the proper id of the previous one.
+     *
+     * @param previousUser the previous user to be replaced.
+     * @param updatedUser the updated user.
+     *
+     * @return the new user object.
+     */
+    public User updateIdOfUpdatedObject(User previousUser, User updatedUser) {
         return new User(
                 previousUser.getId(),
                 updatedUser.getName(),
@@ -183,10 +223,22 @@ public class UserRepositoryImpl implements UserRepository {
                 updatedUser.getEmail());
     }
 
+    /**
+     * This method is responsible for returning the user cache.
+     *
+     * @return a set containing all the users in the cache.
+     */
     public Set<User> getAll() {
         return userCache;
     }
 
+    /**
+     * This method is responsible for returning a user based on its id.
+     *
+     * @param id the id of the user to retrieve.
+     *
+     * @return the retrieved user.
+     */
     public User getById(int id) {
         Optional<User> optionalUser = userCache.stream()
                 .filter(user -> user.getId() == id)
@@ -195,6 +247,13 @@ public class UserRepositoryImpl implements UserRepository {
         return optionalUser.orElse(null);
     }
 
+    /**
+     * This method is responsible for returning a user based on its name.
+     *
+     * @param name the name of the user to retrieve.
+     *
+     * @return the retrieved user.
+     */
     @Override
     public User getByName(String name) {
         Optional<User> optionalUser = userCache.stream()
@@ -204,6 +263,13 @@ public class UserRepositoryImpl implements UserRepository {
         return optionalUser.orElse(null);
     }
 
+    /**
+     * This method is responsible for returning a user based on its surname.
+     *
+     * @param surname the surname of the user to retrieve.
+     *
+     * @return the retrieved user.
+     */
     @Override
     public User getBySurname(String surname) {
         Optional<User> optionalUser = userCache.stream()
@@ -213,6 +279,13 @@ public class UserRepositoryImpl implements UserRepository {
         return optionalUser.orElse(null);
     }
 
+    /**
+     * This method is responsible for returning a user based on its mail.
+     *
+     * @param mail the mail of the user to retrieve.
+     *
+     * @return the retrieved user.
+     */
     @Override
     public User getByMail(String mail) {
         Optional<User> optionalUser = userCache.stream()

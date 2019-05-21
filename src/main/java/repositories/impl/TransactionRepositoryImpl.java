@@ -20,6 +20,11 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.UUID;
 
+/**
+ * This class implements an transaction repository. It is responsible for manipulating transactions in the database,
+ * as well as connecting and caching entities in a static Set, in order to be widely accessible from all the
+ * modules.
+ */
 public class TransactionRepositoryImpl implements TransactionRepository {
 
     private final Set<Transaction> transactionCache = new HashSet<>();
@@ -30,6 +35,9 @@ public class TransactionRepositoryImpl implements TransactionRepository {
         cacheTransactions();
     }
 
+    /**
+     * This method is used in order to cache the transactions. Every time a CRUD operation occurs, the cache is updated.
+     */
     private void cacheTransactions() {
         Connection connection = null;
         PreparedStatement statement = null;
@@ -56,11 +64,23 @@ public class TransactionRepositoryImpl implements TransactionRepository {
         }
     }
 
+    /**
+     * This method is responsible for returning the transaction cache.
+     *
+     * @return a set containing all the transactions in the cache.
+     */
     @Override
     public Set<Transaction> getAll() {
         return transactionCache;
     }
 
+    /**
+     * This method is responsible for returning a transaction based on its id.
+     *
+     * @param id the id of the transaction to retrieve.
+     *
+     * @return the retrieved transaction.
+     */
     @Override
     public Transaction getById(String id) {
         Optional<Transaction> optionalAccount = transactionCache.stream()
@@ -71,6 +91,13 @@ public class TransactionRepositoryImpl implements TransactionRepository {
         return optionalAccount.orElse(null);
     }
 
+    /**
+     * This method is responsible for making transactions between user accounts.
+     *
+     * @param transaction the transaction to be made.
+     *
+     * @return a response, indicating the result of the POST method.
+     */
     @Override
     public synchronized Response makeTransaction(Transaction transaction) {
         if (Utils.isValidCurrencyCode(transaction.getCurrency())) {
@@ -84,7 +111,6 @@ public class TransactionRepositoryImpl implements TransactionRepository {
         PreparedStatement statement;
         try {
             connection = InMemoryDatabase.getConnection();
-            //Set auto commit to false
             Objects.requireNonNull(connection).setAutoCommit(false);
 
             String string = ("INSERT INTO TRANSACTIONS (id, accountTo, accountFrom, amount, currency, date_trans) VALUES (?, ?, ?, ?, ?, ?)");
@@ -118,6 +144,15 @@ public class TransactionRepositoryImpl implements TransactionRepository {
         return Response.status(Response.Status.CREATED).build();
     }
 
+    /**
+     * This method is responsible for updating the accounts according to the input ids.
+     *
+     * @param accountIdTo the account id to give money to.
+     * @param accountIdFrom the account id to get money from.
+     * @param amount the amount of money to be paid.
+     *
+     * @return a response, indicating the result of the PUT (update) method.
+     */
     private Response updateAccounts(int accountIdTo, int accountIdFrom, double amount) {
         Optional<Account> optionalAccountTo = accountCache.stream()
                 .filter(account -> account.getId() == accountIdTo)
@@ -153,6 +188,6 @@ public class TransactionRepositoryImpl implements TransactionRepository {
         RepositoryGenerator.getAccountRepository().update(updatedAccountTo.getId(), updatedAccountTo);
         RepositoryGenerator.getAccountRepository().update(updatedAccountFrom.getId(), updatedAccountFrom);
 
-        return Response.noContent().build();
+        return Response.status(Response.Status.NO_CONTENT).build();
     }
 }

@@ -8,8 +8,17 @@ import routers.AccountRouter;
 import routers.TransactionRouter;
 import routers.UserRouter;
 
+/**
+ * This is the main class of the project, responsible for the connection between the database and the server, as well as
+ * the API functionality.
+ */
 public class MoneyTransferApp {
 
+    /**
+     * This method is responsible for starting the jetty server for the API to post and listen to.
+     *
+     * @throws Exception in case something goes wrong when the server starts.
+     */
     private static void start() throws Exception {
         ServletContextHandler context = new ServletContextHandler(ServletContextHandler.SESSIONS);
         context.setContextPath("/");

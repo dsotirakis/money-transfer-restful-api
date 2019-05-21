@@ -12,6 +12,13 @@ public class Config {
 
     private static Properties properties = new Properties();
 
+    /**
+     * This method is responsible for loading the properties from the properties file.
+     *
+     * @param propertiesFile the properties file.
+     *
+     * @throws IOException in case the properties file doesn't exist.
+     */
     public static void loadProperties(String propertiesFile) throws IOException {
         try {
             File file = new File(propertiesFile);
@@ -23,6 +30,13 @@ public class Config {
         }
     }
 
+    /**
+     * This method is responsible for getting certain properties as strings.
+     *
+     * @param property the property to be read.
+     *
+     * @return the value of the property as string.
+     */
     public static String getProperty(String property) {
         return properties.getProperty(property);
     }

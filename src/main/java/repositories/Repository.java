@@ -15,4 +15,8 @@ public interface Repository<T> {
 
     T getById(int id);
 
+    Response objectNotFound();
+
+    T updateIdOfUpdatedObject(T previousObject, T updatedObject);
+
 }
