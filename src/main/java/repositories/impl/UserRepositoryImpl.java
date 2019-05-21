@@ -168,7 +168,7 @@ public class UserRepositoryImpl implements UserRepository {
         updatedUser = updateIdToUpdatedAccount(optionalUser.get(), updatedUser);
         userCache.add(updatedUser);
 
-        return Response.noContent().entity("Account updated successfully!").build();
+        return Response.noContent().entity("User updated successfully!").build();
     }
 
     private Response userNotFound() {
