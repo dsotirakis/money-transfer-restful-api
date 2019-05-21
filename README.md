@@ -1,4 +1,4 @@
-# money-tranfer-restful-api
+# money-transfer-restful-api
 
 RESTful API for money transactions between accounts.
 
