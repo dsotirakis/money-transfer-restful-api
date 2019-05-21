@@ -4,7 +4,7 @@ RESTful API for money transactions between accounts.
 
 ## Stack Used
 --------------
-- **Application Development**: [Java 11](https://www.oracle.com/technetwork/java/javase/downloads/jdk11-downloads-5066655.html)(Download Link), [Maven](https://maven.apache.org/download.cgi)(Download Link), [Jetty Server](https://en.wikipedia.org/wiki/Jetty_(web_server), [Jersey Servlets](https://jersey.github.io/)
+- **Application Development**: [Java 11](https://www.oracle.com/technetwork/java/javase/downloads/jdk11-downloads-5066655.html)(Download Link), [Maven](https://maven.apache.org/download.cgi)(Download Link), [Jetty Server](https://en.wikipedia.org/wiki/Jetty_(web_server)), [Jersey Servlets](https://jersey.github.io/)
 - **Testing**: [JUnit 5](https://junit.org/junit5/), [JerseyTest](https://jersey.github.io/documentation/latest/test-framework.html)
 - **In-memory Database**: [H2 Database](https://www.h2database.com/html/main.html)
 
