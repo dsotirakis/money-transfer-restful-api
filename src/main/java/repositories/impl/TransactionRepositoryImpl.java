@@ -10,6 +10,7 @@ import utilities.Utils;
 
 import javax.ws.rs.core.Response;
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.sql.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -52,7 +53,7 @@ public class TransactionRepositoryImpl implements TransactionRepository {
                         resultSet.getString("ID"),
                         resultSet.getInt("ACCOUNTTO"),
                         resultSet.getInt("ACCOUNTFROM"),
-                        resultSet.getDouble("AMOUNT"),
+                        resultSet.getBigDecimal("AMOUNT"),
                         resultSet.getString("CURRENCY"),
                         LocalDate.parse(resultSet.getString("DATE_TRANS"), formatter));
                 transactionCache.add(transaction);
@@ -120,7 +121,7 @@ public class TransactionRepositoryImpl implements TransactionRepository {
             statement.setString(1, UUID.randomUUID().toString());
             statement.setInt(2, transaction.getAccountTo());
             statement.setInt(3, transaction.getAccountFrom());
-            statement.setDouble(4, transaction.getAmount());
+            statement.setBigDecimal(4, transaction.getAmount());
             statement.setString(5, transaction.getCurrency());
             statement.setDate(6, Date.valueOf(LocalDateTime.now().toLocalDate()));
 
@@ -139,7 +140,6 @@ public class TransactionRepositoryImpl implements TransactionRepository {
         }
 
         transactionCache.add(transaction);
-        System.out.println(transactionCache.size());
 
         return Response.status(Response.Status.CREATED).build();
     }
@@ -153,7 +153,7 @@ public class TransactionRepositoryImpl implements TransactionRepository {
      *
      * @return a response, indicating the result of the PUT (update) method.
      */
-    private Response updateAccounts(int accountIdTo, int accountIdFrom, double amount) {
+    private synchronized Response updateAccounts(int accountIdTo, int accountIdFrom, BigDecimal amount) {
         Optional<Account> optionalAccountTo = accountCache.stream()
                 .filter(account -> account.getId() == accountIdTo)
                 .findAny();
@@ -176,13 +176,13 @@ public class TransactionRepositoryImpl implements TransactionRepository {
         Account updatedAccountTo = new Account(accountTo.getId(),
                 accountTo.getUsername(),
                 accountTo.getPassword(),
-                accountTo.getBalance() + amount,
+                accountTo.getBalance().add(amount),
                 accountTo.getCurrency());
 
         Account updatedAccountFrom = new Account(accountFrom.getId(),
                 accountFrom.getUsername(),
                 accountFrom.getPassword(),
-                accountFrom.getBalance() - amount,
+                accountFrom.getBalance().subtract(amount),
                 accountFrom.getCurrency());
 
         RepositoryGenerator.getAccountRepository().update(updatedAccountTo.getId(), updatedAccountTo);

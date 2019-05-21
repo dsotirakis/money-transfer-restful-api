@@ -13,6 +13,9 @@ import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * This is a test class for the repository generator.
+ */
 class RepositoryGeneratorTest {
 
     @BeforeAll

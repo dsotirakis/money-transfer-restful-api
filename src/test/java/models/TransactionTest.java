@@ -2,6 +2,7 @@ package models;
 
 import org.junit.jupiter.api.Test;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 
 import static org.junit.Assert.assertEquals;
@@ -13,7 +14,7 @@ class TransactionTest {
 
     private final LocalDate localDate = LocalDate.now();
 
-    private Transaction transaction = new Transaction("1", 1, 2, 1.0, "USD", localDate);
+    private Transaction transaction = new Transaction("1", 1, 2, new BigDecimal(1.0), "USD", localDate);
 
     @Test
     void getId() {
@@ -32,7 +33,7 @@ class TransactionTest {
 
     @Test
     void getAmount() {
-        assertEquals(transaction.getAmount(), 1.0, 0.0);
+        assertEquals(transaction.getAmount(), new BigDecimal(1.0));
     }
 
     @Test

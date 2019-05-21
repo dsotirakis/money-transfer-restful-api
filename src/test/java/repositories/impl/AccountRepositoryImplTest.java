@@ -11,6 +11,11 @@ import repositories.RepositoryGenerator;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.MethodOrderer.*;
 
+import java.math.BigDecimal;
+
+/**
+ * This is a test class for the account repository implementation.
+ */
 class AccountRepositoryImplTest {
 
     private AccountRepository accountRepository = RepositoryGenerator.getAccountRepository();
@@ -20,6 +25,9 @@ class AccountRepositoryImplTest {
         InMemoryDatabase.generateData();
     }
 
+    /**
+     * The following nested tests are testing the getter of the implementation class.
+     */
     @Nested
     @DisplayName("Testing getters")
     @TestMethodOrder(OrderAnnotation.class)
@@ -61,6 +69,10 @@ class AccountRepositoryImplTest {
         }
     }
 
+    /**
+     * The following tests are testing the Create/Update/Delete procedures of the account repository implementation
+     * tests.
+     */
     @Nested
     @DisplayName("Testing CUD procedures")
     @TestMethodOrder(OrderAnnotation.class)
@@ -70,7 +82,7 @@ class AccountRepositoryImplTest {
         @Order(1)
         void add() {
             RepositoryGenerator.getUserRepository().add(new User("newName", "newSurname", "name4@gmail.com"));
-            Account newAccount = new Account("name4@gmail.com", "password4", 100.0, "USD");
+            Account newAccount = new Account("name4@gmail.com", "password4", new BigDecimal(100.0), "USD");
             accountRepository.add(newAccount);
             assertTrue(accountRepository.getAll().contains(newAccount));
             RepositoryGenerator.getUserRepository().delete(0);
@@ -78,7 +90,7 @@ class AccountRepositoryImplTest {
 
         @Test
         void add_userForTheAccountDoesntExist() {
-            Account newAccount = new Account("name6@gmail.com", "password4", 100.0, "USD");
+            Account newAccount = new Account("name6@gmail.com", "password4", new BigDecimal(100.0), "USD");
             accountRepository.add(newAccount);
             assertFalse(accountRepository.getAll().contains(newAccount));
         }
@@ -86,7 +98,7 @@ class AccountRepositoryImplTest {
         @Test
         void add_invalidCurrencyCode() {
             RepositoryGenerator.getUserRepository().add(new User("newName", "newSurname", "name4@gmail.com"));
-            Account newAccount = new Account("name4@gmail.com", "password4", 100.0, "ZZZ");
+            Account newAccount = new Account("name4@gmail.com", "password4", new BigDecimal(100.0), "ZZZ");
             accountRepository.add(newAccount);
             assertFalse(accountRepository.getAll().contains(newAccount));
             RepositoryGenerator.getUserRepository().delete(0);
@@ -107,15 +119,15 @@ class AccountRepositoryImplTest {
 
         @Test
         void update() {
-            Account updatedAccount = new Account("name1@gmail.com", "password1", 100.0, "USD");
+            Account updatedAccount = new Account("name1@gmail.com", "password1", new BigDecimal(100.0), "USD");
             accountRepository.update(1, updatedAccount);
             assertNotNull(accountRepository.getById(1));
-            assertEquals(accountRepository.getById(1).getBalance(), 100.0, 0.0);
+            assertEquals(accountRepository.getById(1).getBalance(), new BigDecimal(100.0));
         }
 
         @Test
         void update_accountDoesntExist() {
-            Account updatedAccount = new Account("name1@gmail.com", "password1", 100.0, "USD");
+            Account updatedAccount = new Account("name1@gmail.com", "password1", new BigDecimal(100.0), "USD");
             assertEquals(accountRepository.update(6, updatedAccount).getStatus(), 404);
         }
     }

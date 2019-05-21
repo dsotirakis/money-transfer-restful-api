@@ -8,17 +8,19 @@ import org.glassfish.jersey.servlet.ServletContainer;
 import repositories.InMemoryDatabase;
 import repositories.RepositoryGenerator;
 
-import javax.ws.rs.ApplicationPath;
-
-@ApplicationPath("resources")
-public class AppResourceConfig extends ResourceConfig {
+/**
+ * This class is responsible for configuring the server and it's properties for all the routers
+ * tests. It contains static methods so there are accessible by all instances at the same time.
+ */
+class RouterTestsConfig extends ResourceConfig {
 
     private static Server jettyServer;
 
-    AppResourceConfig() {
-        packages("routers");
-    }
-
+    /**
+     * This method is responsible for setting up the jetty server.
+     *
+     * @throws Exception in case the jetty server can't start.
+     */
     static void setUp() throws Exception {
         ServletContextHandler context = new ServletContextHandler(ServletContextHandler.SESSIONS);
         context.setContextPath("/");
@@ -42,6 +44,11 @@ public class AppResourceConfig extends ResourceConfig {
         jettyServer.start();
     }
 
+    /**
+     * This method is responsible for terminating the jetty server.
+     *
+     * @throws Exception in case the server can't be terminated.
+     */
     static void tearDown() throws Exception {
         jettyServer.stop();
     }

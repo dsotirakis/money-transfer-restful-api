@@ -2,6 +2,7 @@ package utilities;
 
 import models.Account;
 
+import java.math.BigDecimal;
 import java.util.Currency;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -19,8 +20,8 @@ public class Utils {
      *
      * @return if the payee has sufficient amount of money to pay.
      */
-    public static boolean hasSufficientAmountToPay(Account payee, double amount) {
-        return payee.getBalance() >= amount;
+    public static boolean hasSufficientAmountToPay(Account payee, BigDecimal amount) {
+        return payee.getBalance().compareTo(amount) >= 0;
     }
 
     /**

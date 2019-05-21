@@ -18,6 +18,8 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.math.BigDecimal;
+
 public class TransactionRouterTest extends JerseyTest {
 
     @Override
@@ -29,7 +31,7 @@ public class TransactionRouterTest extends JerseyTest {
 
     @BeforeAll
     static void setup() throws Exception {
-        AppResourceConfig.setUp();
+        RouterTestsConfig.setUp();
     }
 
     @Test
@@ -41,7 +43,7 @@ public class TransactionRouterTest extends JerseyTest {
 
     @Test
     void makeTransaction() {
-        Transaction transaction = new Transaction(4, 5, 10.0, "USD");
+        Transaction transaction = new Transaction(4, 5, new BigDecimal(10.0), "USD");
         Response response = getRequest("makeTransaction")
                 .post(Entity.entity(transaction, MediaType.APPLICATION_JSON));
         assertEquals("Should return status 201", 201, response.getStatus());
@@ -51,7 +53,7 @@ public class TransactionRouterTest extends JerseyTest {
 
     @Test
     void makeTransaction_invalidCurrencyCode() {
-        Transaction transaction = new Transaction(1, 2, 10.0, "ZZZ");
+        Transaction transaction = new Transaction(1, 2, new BigDecimal(10.0), "ZZZ");
         Response response = getRequest("makeTransaction")
                 .post(Entity.entity(transaction, MediaType.APPLICATION_JSON));
         assertEquals("Should return status 404", 404, response.getStatus());
@@ -60,7 +62,7 @@ public class TransactionRouterTest extends JerseyTest {
 
     @Test
     void makeTransaction_invalidAccounts() {
-        Transaction transaction = new Transaction(10, 2, 10.0, "USD");
+        Transaction transaction = new Transaction(10, 2, new BigDecimal(10.0), "USD");
         Response response = getRequest("makeTransaction")
                 .post(Entity.entity(transaction, MediaType.APPLICATION_JSON));
         assertEquals("Should return status 404", 404, response.getStatus());
@@ -69,7 +71,7 @@ public class TransactionRouterTest extends JerseyTest {
 
     @Test
     void makeTransaction_insufficientAmount() {
-        Transaction transaction = new Transaction(2, 3, 99999.0, "USD");
+        Transaction transaction = new Transaction(2, 3, new BigDecimal(99999.0), "USD");
         Response response = getRequest("makeTransaction")
                 .post(Entity.entity(transaction, MediaType.APPLICATION_JSON));
         assertEquals("Should return status 400", 400, response.getStatus());
@@ -78,11 +80,11 @@ public class TransactionRouterTest extends JerseyTest {
 
     @AfterAll
     static void terminate() throws Exception {
-        AppResourceConfig.tearDown();
+        RouterTestsConfig.tearDown();
     }
 
     Invocation.Builder getRequest(String path) {
-        Client client = ClientBuilder.newClient(new AppResourceConfig());
+        Client client = ClientBuilder.newClient(new RouterTestsConfig());
         WebTarget webTarget = client.target("http://localhost:8080/").path("transactions/" + path);
         return webTarget.request();
     }

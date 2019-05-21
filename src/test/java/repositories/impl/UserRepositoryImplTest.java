@@ -10,6 +10,9 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.MethodOrderer.*;
 
+/**
+ * This is a test class for the user repository implementation.
+ */
 class UserRepositoryImplTest {
 
     private UserRepository userRepository = RepositoryGenerator.getUserRepository();
@@ -19,6 +22,9 @@ class UserRepositoryImplTest {
         InMemoryDatabase.generateData();
     }
 
+    /**
+     * The following nested tests are testing the getter of the implementation class.
+     */
     @Nested
     @DisplayName("Testing getters")
     @TestMethodOrder(OrderAnnotation.class)
@@ -83,6 +89,10 @@ class UserRepositoryImplTest {
         }
     }
 
+    /**
+     * The following tests are testing the Create/Update/Delete procedures of the user repository implementation
+     * tests.
+     */
     @Nested
     @DisplayName("Testing CUD procedures")
     @TestMethodOrder(OrderAnnotation.class)

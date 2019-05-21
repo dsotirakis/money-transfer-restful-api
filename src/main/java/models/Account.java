@@ -1,5 +1,7 @@
 package models;
 
+import java.math.BigDecimal;
+
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -13,7 +15,7 @@ public class Account {
     private int id;
     private String username;
     private String password;
-    private double balance;
+    private BigDecimal balance;
     private String currency;
     private User user;
 
@@ -21,7 +23,7 @@ public class Account {
     public Account(
             @JsonProperty(value = "username", required = true) String username,
             @JsonProperty(value = "password", required = true) String password,
-            @JsonProperty(value = "balance", required = true) double balance,
+            @JsonProperty(value = "balance", required = true) BigDecimal balance,
             @JsonProperty(value = "currency", required = true) String currency) {
         this.username = username;
         this.password = password;
@@ -29,7 +31,7 @@ public class Account {
         this.currency = currency;
     }
 
-    public Account(int id, String userName, String password, double balance, String currency) {
+    public Account(int id, String userName, String password, BigDecimal balance, String currency) {
         this.id = id;
         this.username = userName;
         this.password = password;
@@ -49,7 +51,7 @@ public class Account {
         return this.password;
     }
 
-    public double getBalance() {
+    public BigDecimal getBalance() {
         return this.balance;
     }
 

@@ -3,12 +3,14 @@ package models;
 import org.junit.jupiter.api.Test;
 import static org.junit.Assert.*;
 
+import java.math.BigDecimal;
+
 /**
  * Unit test for the Account class.
  */
 class AccountTest {
 
-    private Account account = new Account(1, "name@gmail.com", "password", 1.0, "USD");
+    private Account account = new Account(1, "name@gmail.com", "password", new BigDecimal(1.0), "USD");
 
     @Test
     void getId() {
@@ -27,7 +29,7 @@ class AccountTest {
 
     @Test
     void getBalance() {
-        assertEquals(account.getBalance(), 1.0, 0.0);
+        assertEquals(account.getBalance(), new BigDecimal(1.0));
     }
 
     @Test

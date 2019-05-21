@@ -32,7 +32,7 @@ public class UserRouterTest extends JerseyTest {
 
     @BeforeAll
     static void setup() throws Exception {
-        AppResourceConfig.setUp();
+        RouterTestsConfig.setUp();
     }
 
     @Test
@@ -135,11 +135,11 @@ public class UserRouterTest extends JerseyTest {
 
     @AfterAll
     static void terminate() throws Exception {
-        AppResourceConfig.tearDown();
+        RouterTestsConfig.tearDown();
     }
 
     Invocation.Builder getRequest(String path) {
-        Client client = ClientBuilder.newClient(new AppResourceConfig());
+        Client client = ClientBuilder.newClient(new RouterTestsConfig());
         WebTarget webTarget = client.target("http://localhost:8080/").path("users/" + path);
         return webTarget.request();
     }

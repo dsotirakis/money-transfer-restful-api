@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 
 /**
@@ -15,7 +16,7 @@ public class Transaction {
     private String id;
     private int accountTo;
     private int accountFrom;
-    private double amount;
+    private BigDecimal amount;
     private String currency;
     private LocalDate time;
 
@@ -23,7 +24,7 @@ public class Transaction {
     public Transaction(
             @JsonProperty(value = "accountTo", required = true) int accountTo,
             @JsonProperty(value = "accountFrom", required = true) int accountFrom,
-            @JsonProperty(value = "amount", required = true) double amount,
+            @JsonProperty(value = "amount", required = true) BigDecimal amount,
             @JsonProperty(value = "currency", required = true) String currency) {
         this.accountTo = accountTo;
         this.accountFrom = accountFrom;
@@ -35,7 +36,7 @@ public class Transaction {
             String id,
             int accountTo,
             int accountFrom,
-            double amount,
+            BigDecimal amount,
             String currency,
             LocalDate time) {
         this.id = id;
@@ -58,7 +59,7 @@ public class Transaction {
         return accountFrom;
     }
 
-    public double getAmount() {
+    public BigDecimal getAmount() {
         return amount;
     }
 

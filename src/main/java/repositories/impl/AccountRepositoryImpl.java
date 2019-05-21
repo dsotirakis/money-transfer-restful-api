@@ -48,7 +48,7 @@ public class AccountRepositoryImpl implements AccountRepository {
                         resultSet.getInt("ID"),
                         resultSet.getString("USERNAME"),
                         resultSet.getString("PASSWORD"),
-                        resultSet.getInt("BALANCE"),
+                        resultSet.getBigDecimal("BALANCE"),
                         resultSet.getString("CURRENCY"));
                 accountCache.add(account);
             }
@@ -86,7 +86,7 @@ public class AccountRepositoryImpl implements AccountRepository {
             statement = connection.prepareStatement(string);
             statement.setString(1, newAccount.getUsername());
             statement.setString(2, newAccount.getPassword());
-            statement.setDouble(3, newAccount.getBalance());
+            statement.setBigDecimal(3, newAccount.getBalance());
             statement.setString(4, newAccount.getCurrency());
 
             statement.executeUpdate();
@@ -162,7 +162,7 @@ public class AccountRepositoryImpl implements AccountRepository {
      *
      * @return a response, indicating the result of the PUT method.
      */
-    public Response update(int id, Account updatedAccount) {
+    public synchronized Response update(int id, Account updatedAccount) {
         Optional<Account> optionalAccount = accountCache.stream()
                 .filter(account -> account.getId() == id)
                 .findAny();
@@ -183,7 +183,7 @@ public class AccountRepositoryImpl implements AccountRepository {
             statement = connection.prepareStatement(string);
             statement.setString(1, updatedAccount.getUsername());
             statement.setString(2, updatedAccount.getPassword());
-            statement.setDouble(3, updatedAccount.getBalance());
+            statement.setBigDecimal(3, updatedAccount.getBalance());
             statement.setInt(4, id);
 
             statement.executeUpdate();
